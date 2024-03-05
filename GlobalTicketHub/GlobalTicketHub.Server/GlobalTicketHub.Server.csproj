@@ -4,10 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>6d4a76c9-6516-4ef6-bb12-f4b056141926</UserSecretsId>
+    <UserSecretsId>52653514-a8b1-456e-ad3b-deb3dc0ed5c1</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
-    <SpaRoot>..\globaltickethubfull.client</SpaRoot>
+    <SpaRoot>..\globaltickethub.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
   </PropertyGroup>
@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BLL\BLL.csproj" />
-    <ProjectReference Include="..\globaltickethubfull.client\globaltickethubfull.client.esproj">
+    <ProjectReference Include="..\globaltickethub.client\globaltickethub.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

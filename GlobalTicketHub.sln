@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DLL", "DLL\DLL.csproj", "{A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{4959FA7E-3A00-492A-8D4F-61B00F6AD818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTicketHubFull.Server", "GlobalTicketHubFull\GlobalTicketHubFull.Server\GlobalTicketHubFull.Server.csproj", "{743E3D05-7165-45B6-A684-9FEB38885BFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTicketHub.Server", "GlobalTicketHub\GlobalTicketHub.Server\GlobalTicketHub.Server.csproj", "{76446AD7-44E7-4862-B8E3-8ED4B5BCFF72}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "globaltickethubfull.client", "GlobalTicketHubFull\globaltickethubfull.client\globaltickethubfull.client.esproj", "{22737CE8-7CB0-4FF1-BD90-F108272B4E42}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "globaltickethub.client", "GlobalTicketHub\globaltickethub.client\globaltickethub.client.esproj", "{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +31,16 @@ Global
 		{4959FA7E-3A00-492A-8D4F-61B00F6AD818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4959FA7E-3A00-492A-8D4F-61B00F6AD818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4959FA7E-3A00-492A-8D4F-61B00F6AD818}.Release|Any CPU.Build.0 = Release|Any CPU
-		{743E3D05-7165-45B6-A684-9FEB38885BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{743E3D05-7165-45B6-A684-9FEB38885BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{743E3D05-7165-45B6-A684-9FEB38885BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{743E3D05-7165-45B6-A684-9FEB38885BFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22737CE8-7CB0-4FF1-BD90-F108272B4E42}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{76446AD7-44E7-4862-B8E3-8ED4B5BCFF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76446AD7-44E7-4862-B8E3-8ED4B5BCFF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76446AD7-44E7-4862-B8E3-8ED4B5BCFF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76446AD7-44E7-4862-B8E3-8ED4B5BCFF72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65DF5136-9FEC-43C1-8230-38BF5B87EFD4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
