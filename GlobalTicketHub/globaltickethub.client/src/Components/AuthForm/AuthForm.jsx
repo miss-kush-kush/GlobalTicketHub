@@ -20,19 +20,21 @@ class AuthForms extends Component {
       <div className="auth-container">
         <div className="auth-card">
           <div className="buttons-container">
-            <button
-              onClick={() => this.handleFormSwitch('register')}
-              className={this.state.activeForm === 'login' ? 'active' : ''}
-            >
-              Реєстрація
-            </button>
-            <button
+          <button
+              classNames = 'button-select'
               onClick={() => this.handleFormSwitch('login')}
               className={this.state.activeForm === 'register' ? 'active' : ''}
             >
               Аутентифікація
             </button>
-
+            <button
+              classNames = 'button-select'
+              onClick={() => this.handleFormSwitch('register')}
+              className={this.state.activeForm === 'login' ? 'active' : ''}
+            >
+              Реєстрація
+            </button>
+            
             {/* Place the forms below the buttons */}
             <div className="forms-container">
               {this.state.activeForm === 'login' ? <LoginForm /> : <RegisterForm />}

@@ -11,17 +11,18 @@
   display: flex;
   flex-direction: row;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 32px;
-  border: 1px solid #f07b6a;
+  border: 3px solid #f07b6a;
   position: relative; /* Додайте цей рядок для врахування псевдоелемента */
   overflow: hidden; /* Додайте цей рядок для обрізання поза межами */
 }
 
-button {
+.button-select {
   margin-right: 16px;
-  padding: 8px 16px;
+  padding: 2vh 16px;
+  padding-bottom: 3.8vh;
   border: none;
   border-radius: 4px;
   background-color: #ffffff;
@@ -32,7 +33,7 @@ button {
   position: relative;
 }
 
-button::after {
+.button-select::after {
   content: '';
   display: block;
   width: 100%;
@@ -44,14 +45,14 @@ button::after {
   transition: width 0.2s ease;
 }
 
-button.active::after {
+.button-select.active::after {
   width: 0;
 }
 
-button:hover {
+.button-select:hover {
   background-color: #ffffff;
 }
 
-button.active {
+.button-select.active {
   color: #333;
 }
