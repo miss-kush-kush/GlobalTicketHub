@@ -21,14 +21,12 @@ class AuthForms extends Component {
         <div className="auth-card">
           <div className="buttons-container">
           <button
-              classNames = 'button-select'
               onClick={() => this.handleFormSwitch('login')}
               className={this.state.activeForm === 'register' ? 'active' : ''}
             >
               Аутентифікація
             </button>
             <button
-              classNames = 'button-select'
               onClick={() => this.handleFormSwitch('register')}
               className={this.state.activeForm === 'login' ? 'active' : ''}
             >

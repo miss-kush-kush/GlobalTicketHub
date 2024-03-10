@@ -19,7 +19,7 @@
   overflow: hidden; /* Додайте цей рядок для обрізання поза межами */
 }
 
-.button-select {
+.buttons-container>button {
   margin-right: 16px;
   padding: 2vh 16px;
   padding-bottom: 3.8vh;
@@ -33,7 +33,7 @@
   position: relative;
 }
 
-.button-select::after {
+.buttons-container>button::after {
   content: '';
   display: block;
   width: 100%;
@@ -45,14 +45,14 @@
   transition: width 0.2s ease;
 }
 
-.button-select.active::after {
+.buttons-container>button.active::after {
   width: 0;
 }
 
-.button-select:hover {
+.buttons-container>button:hover {
   background-color: #ffffff;
 }
 
-.button-select.active {
+.buttons-container>button.active {
   color: #333;
 }
