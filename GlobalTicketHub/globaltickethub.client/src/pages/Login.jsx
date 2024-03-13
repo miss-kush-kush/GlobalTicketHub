@@ -1,98 +1,100 @@
-import React, { useState, handleSubmit } from "react";
-import "../styles/login.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import React, { useState } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
+
+const validationSchema = yup.object().shape({
+  email: yup.string().required().matches(/^[^@]+@[^.]+\..+$/),
+  password: yup.string().min(6).required(),
+});
 
 export default function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-    isEmailValid: false, // New state variable to track email validity
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
   });
+
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [checked, setChecked] = useState(false);
+
+  const toggleCheckbox = () => {
+    setChecked(!checked);
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    const newValue = type === "checkbox" ? checked : value;
-    let isEmailValid = formData.isEmailValid;
-
-    if (name === "email") {
-      isEmailValid = validateEmail(value);
+  const handleSubmit = async (values) => {
+    try {
+      await validationSchema.validate(values, { abortEarly: false });
+      // Логіка для випадку, коли форма пройшла валідацію
+    } catch (errors) {
+      // Обробка помилок валідації
     }
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-      isEmailValid: isEmailValid,
-    });
   };
 
   return (
-    <>
-    <form onSubmit={handleSubmit}>
-      <div className="login-container">
-      
-
-        <div style={{ position: "relative" }}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email*"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          {formData.isEmailValid && (
-            <span className="email-validation-icon">
-              ✓
-            </span>
-          )}
-        </div>
-
-        <div style={{ position: "relative" }}>
-          <input
-            type={passwordVisible ? "text" : "password"}
-            name="password"
-            placeholder="Пароль*"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-          <span
-            className="cumancen">
-            <i
-              className={passwordVisible ? "far fa-eye" : "far fa-eye-slash"}
-              onClick={togglePasswordVisibility}
-            ></i>
-          </span>
-        </div>
-        
-        <label>*Обов'язкові поля</label>
-
-        <div className="checkbox-container">
-          <div className="checkbox-text-center">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="login-container">
+          <div style={{ position: "relative" }}>
             <input
-              type="checkbox"
-              name="rememberMe"
-              id="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleInputChange}
+              type="email"
+              name="email"
+              placeholder="Email*"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-            <label className="text-remember">Запам'ятати мене</label>
+            {formik.touched.email && !formik.errors.email && (
+            <span className="email-validation-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </span>
+            )}
           </div>
-          <a href="">Забули пароль</a>
-        </div>
 
-        <button type="submit">УВІЙТИ</button>
-      </div>
+          <div style={{ position: "relative" }}>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              placeholder="Пароль*"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <span
+              className="cumancen"
+              onClick={togglePasswordVisibility}
+            >
+              <i
+                className={passwordVisible ? "far fa-eye" : "far fa-eye-slash"}
+              ></i>
+            </span>
+          </div>
+
+          <div className="checkbox-container">
+            <div className="checkbox-text-center">
+              <div
+                className={`custom-checkbox ${checked ? 'checked' : ''}`}
+                onClick={toggleCheckbox}
+                required
+              >
+                {/* Іконка позначення */}
+                {checked && <span className="checkmark">&#10003;</span>}
+              </div>
+              <label className="text-remember">Запам'ятати мене</label>
+            </div>
+            <a href="">Забули пароль</a>
+          </div>
+
+          <button type="submit">УВІЙТИ</button>
+        </div>
       </form>
-    </>
   );
 }
