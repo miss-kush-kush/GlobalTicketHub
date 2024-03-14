@@ -1,4 +1,11 @@
-﻿#root {
+﻿@font-face {
+    font-family: 'Fixel Display';
+    src: url(./font/FixelDisplay/FixelDisplay-Medium.woff2) format(woff2);
+}
+body{
+    font-family: Fixel Display
+}
+#root {
     max-width: 1280px;
     margin: 0 auto;
     padding: 2rem;
