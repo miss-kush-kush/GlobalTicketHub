@@ -58,8 +58,23 @@ export default function Registr() {
   const toggleCheckbox = () => {
     formik.setFieldValue("agreementChecked", !formik.values.agreementChecked);
   };
+  const handle = async (event) =>{
+    event.preventDefault()
+    const firstName = event.target.elements.firstName.value;
+    const lastName = event.target.elements.lastName.value;
+    const phone = event.target.elements.phone.value;
+    const email = event.target.elements.email.value;
+    const password = event.target.elements.password.value;
+    let res = await signup(firstName,lastName,phone,email,password)
+    if(res.status == 200){
+      toast.success(res.message)
+    }
+    else{
+      toast.error(res.message)
+    }
+  }
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handle}>
       <div className="reg-container">
         <div style={{ position: "relative" }}>
           <input

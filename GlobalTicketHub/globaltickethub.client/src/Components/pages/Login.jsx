@@ -41,9 +41,21 @@ export default function Login() {
       // Обробка помилок валідації
     }
   };
+  const handle = async (event) =>{
+    event.preventDefault()
+    const email = event.target.elements.email.value;
+    const password = event.target.elements.password.value;
+    let res = await login(email,password)
+    if(res.status == 200){
+      toast.success(res.message)
+    }
+    else{
+      toast.error(res.message)
+    }
+  }
 
   return (
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={handle}>
         <div className="login-container">
           <div style={{ position: "relative" }}>
             <input
