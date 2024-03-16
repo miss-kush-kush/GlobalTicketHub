@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AuthContext from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
 
 export default function Registr() {
   const [passwordVisible, setPasswordVisible] = useState(false);

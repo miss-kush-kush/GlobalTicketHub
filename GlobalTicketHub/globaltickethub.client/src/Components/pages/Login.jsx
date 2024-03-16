@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import AuthContext from '../contexts/AuthContext'
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object().shape({
   email: yup.string().required().matches(/^[^@]+@[^.]+\..+$/),
