@@ -1,0 +1,21 @@
+.tips-block{
+    position: relative;
+    
+    width: 100%;
+    height: fit-content;
+}
+.tips-block-tips1{
+    background-color: #F07B6AF5;
+}
+.tips-block>ul{
+    padding: 2rem 4rem;
+    margin: 0;
+    display: flex;
+    list-style: none;
+}
+.tips-block-tips1>ul{
+    gap: 4rem;
+}
+.tips-block li {
+   margin: 0 2rem;
+}
