@@ -8,7 +8,9 @@ const validationSchema = yup.object().shape({
   password: yup.string().min(6).required(),
 });
 
-export default function Login() {
+export default function Login({setVisible}) {
+  const [submitValue, setSubmitValue] = useState('УВІЙТИ')
+  const [isLoading, setIsLoading] = useState(false)
   const{login}=useContext(AuthContext)
   const formik = useFormik({
     initialValues: {
@@ -23,7 +25,7 @@ export default function Login() {
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const toggleCheckbox = () => {
     setChecked(!checked);
@@ -42,15 +44,20 @@ export default function Login() {
   };
   const handle = async (event) =>{
     event.preventDefault()
+    setSubmitValue('...Опрацювання')
+    setIsLoading(true)
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
     let res = await login(email,password)
     if(res.status == 200){
       toast.success(res.message)
+      setVisible(false)
     }
     else{
       toast.error(res.message)
     }
+    setIsLoading(false)
+    setSubmitValue('УВІЙТИ')
   }
 
   return (
@@ -106,7 +113,7 @@ export default function Login() {
             <a href="">Забули пароль</a>
           </div>
 
-          <button type="submit">УВІЙТИ</button>
+          <button disabled={isLoading} type="submit">{submitValue}</button>
         </div>
       </form>
   );

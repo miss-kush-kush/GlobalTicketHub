@@ -3,7 +3,7 @@ import {train} from './popularRoutesLists'
 import './styles/PopularRoute.css';
 import SelectButtonList from './SelectButtonList'
 import PopularRouteList from './PopularRouteList';
-const PopularRoute = ()=>{
+const PopularRoute = ({setPoints})=>{
     const[routes, setRoutes] = useState(train)
     return <div className='popular-route-block'>
         <ul>
@@ -14,7 +14,7 @@ const PopularRoute = ()=>{
                 <SelectButtonList setRoutes={setRoutes}/>
             </li>
             <li>
-                <PopularRouteList routeList={routes.routeList}/>
+                <PopularRouteList setPoints={setPoints} routeList={routes.routeList}/>
             </li>
         </ul>
     </div>

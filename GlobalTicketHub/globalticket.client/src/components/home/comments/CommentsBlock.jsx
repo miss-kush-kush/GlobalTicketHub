@@ -1,6 +1,7 @@
 import Comment from './Comment';
 import './styles/CommentsBlock.css'
 import {comments} from './commentsList'
+
 const CommentsBlock = () =>{
     return <div className='comments-block'>
         <h1>Відгуки про нас</h1>        

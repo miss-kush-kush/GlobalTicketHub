@@ -1,32 +1,12 @@
-
+import { useState, useContext } from 'react';
 import SeacrhBlock from './search/SearchBlock';
-import TipsBlock from './tips/TipsBlock'
-import AdBlock from './ad/AdBlock';
-import Tips2 from './tips2/Tips2';
-import PopularRoute from './popular/PopularRoute';
-import CommentsBlock from './comments/CommentsBlock'
-import CommentForm from './comments/comment-from/CommentForm';
-const Home = ()=>{
-    /*
-    <SeacrhBlock/>
-            <TipsBlock/>
-            <AdBlock/>
-            <Tips2/>
-            <PopularRoute/>
-            <CommentsBlock/>
-            <CommentForm/>
-    
-    
-    
-    */ 
+import AuthContext from '../../contexts/AuthContext';
+import { Outlet } from 'react-router-dom';
+
+const Home = ({startPoint, endPoint})=>{
 return <>
-        <SeacrhBlock/>
-        <TipsBlock/>
-        <AdBlock/>
-        <Tips2/>
-        <PopularRoute/>
-        <CommentsBlock/>
-        <CommentForm/>
+        <SeacrhBlock startPoint={startPoint} endPoint={endPoint}/>  
+        <Outlet/>
 </>
 }
 export default Home

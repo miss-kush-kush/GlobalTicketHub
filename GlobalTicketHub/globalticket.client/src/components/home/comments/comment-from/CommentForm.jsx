@@ -1,12 +1,20 @@
 import '../styles/CommentsBlock.css'
 import avatar from '../../../../image/avatar2.png'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Rate } from 'antd'
+import AuthContext from '../../../../contexts/AuthContext'
+import { toast } from 'react-toastify'
 const CommentForm = () =>{
     const[text,setText] = useState('')
     const[rate,setRate] = useState(5)
-    const handle = (e) => {
+    const {sendComment} = useContext(AuthContext)
+    const handle = async (e) => {
         e.preventDefault()
+        let cRate = rate;
+        let commentText = text;
+        let res = await sendComment(cRate,commentText)
+        toast.success("Comment send!")
+        setText('')
     }
     return <div className='comment-form-block'>
         <h1>Залиш свій коментар та допоможи нам покращити роботу!</h1>

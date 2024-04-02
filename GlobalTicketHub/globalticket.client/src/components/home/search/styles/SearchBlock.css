@@ -1,7 +1,7 @@
 .search-block {
     position: static;
     display: block;
-
+    height: fit-content;
 }
 .photo-back{
     position: relative;

@@ -1,19 +1,34 @@
 import { useFormik } from 'formik';
 import { validationSchema } from "./validSchema";
 import './styles/SearchForm.css'
-const SearchForm = () => {
-    const onSubmit = ()=>{
-        console.log("test")
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+const SearchForm = ({startPoint,endPoint}) => {
+    const navigate = useNavigate()
+    const onSubmit = (values)=>{
+        console.log(values.beginPoint)
+        navigate('/search/train')
+        window.scrollTo({
+            top: 200,
+            behavior: 'smooth'
+        });
     }
-    const {values, errors, touched, handleBlur, handleChange, handleSubmit} = useFormik({
+    const {values, errors, touched, handleBlur, handleChange, handleSubmit,setValues} = useFormik({
         initialValues: {
-            beginPoint: "",
-            endPoint: "",
+            beginPoint: startPoint,
+            endPoint: endPoint,
             date: new Date().toISOString().slice(0, 10)
         },
         validationSchema: validationSchema,
         onSubmit
     })
+    useEffect(()=>{
+        setValues({
+            ...values,
+            beginPoint: startPoint,
+            endPoint: endPoint
+        })
+    },[startPoint,endPoint])
     return (
         <form onSubmit={handleSubmit} autoComplete="off" className="searchForm">
             <div className="search">

@@ -37,7 +37,7 @@ class AuthForms extends Component {
             
           </div>
           <div className="forms-container">
-                  {this.state.activeForm === 'login' ? <Login/> : <Registr/>}
+                  {this.state.activeForm === 'login' ? <Login setVisible={this.props.setVisible}/> : <Registr setVisible={this.props.setVisible}/>}
           </div>
         </div>
     );

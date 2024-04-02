@@ -2,33 +2,43 @@ import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
 import { AuthProvider } from './providers/AuthProvider';
-import Navbar from './components/header/Navbar';
 import Home from './components/home/Home'
-import Footer from './components/footer/Footer'
-import { Modal } from 'antd';
-import AuthForm from './components/auth/AuthForm'
 import { ToastContainer } from 'react-toastify';
+import MainProfile from './components/profile/main_profile/MainProfile';
+import { Routes, Route } from 'react-router-dom';
+import HomeMain from './components/home/HomeMain';
+import Layout from './components/Layout';
+import TicketsBlock from './components/ticket/TicketsBlock';
+import HomeProfileBody from './components/profile/body/HomeProfileBody';
 function App() {
   const [visible, setVisible] = useState(false);
-  /*
-  
-  */
+  const [startPoint, setStartPoint] = useState('')
+    const [endPoint, setEndPoint] = useState('')
+    const setPoints = (start,end)=>{
+        setStartPoint(start)
+        setEndPoint(end)
+    }
   return (
     <>
       <AuthProvider>
-        <Navbar setVisible={setVisible}/>
-        <Home/>
-        <Footer/>
-        <Modal
-                  className='modal-width'
-                  title={null}
-                  footer={null}
-                  open={visible}
-                  onOk={()=>setVisible(false)}
-                  onCancel={()=>setVisible(false)}>
-          <AuthForm/>
-        </Modal>
-        
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route path='/' element={<Home startPoint={startPoint} endPoint={endPoint}/>}>
+              <Route path='/' element={<HomeMain setPoints={setPoints}/>}/>
+              <Route path='/search/train' element={<TicketsBlock/>}/>
+            </Route>
+            <Route path='/profile' element={<MainProfile />}>
+              <Route path='*' element={<HomeProfileBody/>}/>
+              <Route path='ticket/train' element={<h1>Train</h1>}/>
+              <Route path='ticket/bus' element={<h1>Bus</h1>}/>
+              <Route path='ticket/airplane' element={<h1>AIR</h1>}/>
+            </Route>
+            <Route path='/bus' element={<><h1>BUS!</h1></>}/>
+            <Route path='/airplane' element={<><h1>AIRPLANE!</h1></>}/>
+            <Route path='/schedule' element={<><h1>SCHEDULE!</h1></>}/>
+          </Route>
+        </Routes>
+        <ToastContainer/>
       </AuthProvider>
     </>
   );

@@ -1,0 +1,56 @@
+.profile-navbar{
+    height: fit-content;
+    width: 336px;
+    border: 3px solid #F07B6A;
+    border-radius: 15px;
+    display: grid;
+    overflow: hidden;
+    position: sticky;
+}
+.profile-navbar>button{
+    display: grid;
+    cursor: pointer;
+    font-family: Fixel Display Light;
+    border: none;
+    padding: 0.5rem 2rem;
+    justify-items: flex-start;
+    text-align: start;
+    border-bottom: 3px solid #F07B6A;
+    grid-template-columns: 40px auto;
+    align-items: center; 
+}
+.profile-btn{
+    background-color: white;
+    color: #9D9D9D;
+}
+.profile-btn>span>svg{
+    fill: #9D9D9D;
+}
+.profile-active-btn{
+    background-color: #F07B6A;
+    color: white;
+}
+.profile-active-btn>span>svg{
+    fill: white;
+}
+
+
+
+.profile-navbar>button:last-child{
+    border: none;
+}
+
+.select-btn-text{
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.select-btn-image{
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+    width: auto;
+}
+
+

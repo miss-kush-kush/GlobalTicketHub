@@ -6,7 +6,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 
-export default function Registr() {
+export default function Registr({setVisible}) {
+  const [submitValue, setSubmitValue] = useState('РЕЄСТРАЦІЯ')
+  const [isLoading, setIsLoading] = useState(false)
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const {signup} = useContext(AuthContext)
@@ -61,6 +63,8 @@ export default function Registr() {
   };
   const handle = async (event) =>{
     event.preventDefault()
+    setIsLoading(true)
+    setSubmitValue('...Опрацювання')
     const firstName = event.target.elements.firstName.value;
     const lastName = event.target.elements.lastName.value;
     const phone = event.target.elements.phone.value;
@@ -69,10 +73,13 @@ export default function Registr() {
     let res = await signup(firstName,lastName,phone,email,password)
     if(res.status == 200){
       toast.success(res.message)
+      setVisible(false)
     }
     else{
       toast.error(res.message)
     }
+    setIsLoading(false)
+    setSubmitValue('РЕЄСТРАЦІЯ')
   }
   return (
     <form onSubmit={handle}>
@@ -199,7 +206,7 @@ export default function Registr() {
           </div>
           
         </div>
-        <button type="submit">УВІЙТИ</button>
+        <button disabled={isLoading} type="submit">РЕЄСТРАЦІЯ</button>
       </div>
     </form>
   );
