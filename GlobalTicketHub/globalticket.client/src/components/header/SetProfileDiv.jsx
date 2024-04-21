@@ -3,18 +3,17 @@ import { useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const SetProfileDiv = ({setVisibleModal,setVisible}) =>{
+    const {t} = useTranslation()
     const navigate = useNavigate()
     const {logout, isAuth} = useContext(AuthContext)
     const handleLogIn = ()=>{
             setVisibleModal(true)
             setVisible(false)
-            console.log("login")
     }
     const  handleLogOut =  async()=>{
         setVisible(false)
-        console.log("logout")
         let response = await logout()
         if(response.status==200){
             toast.success(response.message)
@@ -37,7 +36,7 @@ const SetProfileDiv = ({setVisibleModal,setVisible}) =>{
                 <path d="M11.7222 1H7.27778V2.94444L5.61111 3.77778L3.94444 2.94444L2 6.55556L3.38889 7.38889V9.61111L2 10.4444L3.94444 13.7778L5.61111 12.9444L7.27778 14.0556V16H11.7222V14.0556L13.3889 12.9444L15.0556 13.7778L17 10.4444L15.6111 9.61111V7.38889L17 6.55556L14.7778 2.94444L13.3889 3.77778L11.7222 2.94444V1Z" fill="#9D9D9D" stroke="#9D9D9D" stroke-width="2" stroke-linecap="square"/>
                 <circle cx="9.50022" cy="8.50022" r="3.88889" fill="white"/>
             </svg>
-            <span>Налаштування</span>
+            <span>{t('profileDiv.settings')}</span>
         </NavLink>
         <div className='divider'></div>
         <div className='profile-container' onClick={isAuth()?handleLogOut:handleLogIn}>
@@ -47,7 +46,7 @@ const SetProfileDiv = ({setVisibleModal,setVisible}) =>{
                 <path d="M0 0.583008L7 1.74967V14.583L0 13.4163V0.583008Z" fill="#F07B6A"/>
             </svg>
 
-            <span >{isAuth()?'Вихід':'Вхід'}</span>
+            <span >{isAuth()?t('profileDiv.logout'):t('profileDiv.login')}</span>
         </div>
     </div>
 }

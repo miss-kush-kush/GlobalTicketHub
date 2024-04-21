@@ -3,13 +3,15 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import AuthContext from '../../../contexts/AuthContext'
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 const validationSchema = yup.object().shape({
   email: yup.string().required().matches(/^[^@]+@[^.]+\..+$/),
   password: yup.string().min(6).required(),
 });
 
 export default function Login({setVisible}) {
-  const [submitValue, setSubmitValue] = useState('УВІЙТИ')
+  const {t} =useTranslation()
+  const [submitValue, setSubmitValue] = useState(t('auth.enter'))
   const [isLoading, setIsLoading] = useState(false)
   const{login}=useContext(AuthContext)
   const formik = useFormik({
@@ -44,10 +46,10 @@ export default function Login({setVisible}) {
   };
   const handle = async (event) =>{
     event.preventDefault()
-    setSubmitValue('...Опрацювання')
+    setSubmitValue(t('auth.processing'))
     setIsLoading(true)
-    const email = event.target.elements.email.value;
-    const password = event.target.elements.password.value;
+    const email = formik.values.email;
+    const password = formik.values.password;
     let res = await login(email,password)
     if(res.status == 200){
       toast.success(res.message)
@@ -83,7 +85,7 @@ export default function Login({setVisible}) {
             <input
               type={passwordVisible ? "text" : "password"}
               name="password"
-              placeholder="Пароль*"
+              placeholder={t('auth.password')}
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -108,9 +110,9 @@ export default function Login({setVisible}) {
                 {/* Іконка позначення */}
                 {checked && <span className="checkmark">&#10003;</span>}
               </div>
-              <label className="text-remember">Запам'ятати мене</label>
+              <label className="text-remember">{t('auth.remember')}</label>
             </div>
-            <a href="">Забули пароль</a>
+            <a href="">{t('auth.forgot')}</a>
           </div>
 
           <button disabled={isLoading} type="submit">{submitValue}</button>

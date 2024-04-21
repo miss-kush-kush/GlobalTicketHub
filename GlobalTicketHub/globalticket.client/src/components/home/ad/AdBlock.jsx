@@ -1,21 +1,22 @@
 import PhoneSvg from './images/PhoneSvg';
 import './styles/AdBlock.css'
+import { useTranslation } from 'react-i18next';
 const AdBlock = () =>{
-    
+    const {t} = useTranslation()
     return <div className='ad-block'> 
         <div className='phone-block'>
            <PhoneSvg/>
         </div>
         <div className='text-block'>
-            <h1>Наш безкоштовний застосунок</h1>
-            <p>Ще ніколи планування подорожей не було таким простим!</p>
+            <h1>{t('ad.title')}</h1>
+            <p>{t('ad.subtitle')}</p>
             <ul>
                 <li className='icon-box'>
                     <svg className='icon-box-svg' width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="14.5" cy="14.5" r="13.5" stroke="white" stroke-width="2"/>
                         <path d="M14 7.5V16H19.5" stroke="white" stroke-width="3" stroke-linecap="round"/>
                     </svg>
-                    <p>Оновлення подорожей у реальному часі</p>
+                    <p>{t('ad.update')}</p>
                 </li>
                 <li className='icon-box'>
                     <svg className='icon-box-svg-other' width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,13 +29,13 @@ const AdBlock = () =>{
                         <rect x="4" y="20" width="7" height="7" rx="2" fill="white"/>
                         <rect x="20" y="4" width="7" height="7" rx="2" fill="white"/>
                     </svg>
-                    <p>Квитки в телефоні</p>
+                    <p>{t('ad.tickets')}</p>
                 </li>
                 <li className='icon-box'>
                     <svg className='icon-box-svg' width="35" height="30" viewBox="0 0 35 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M32.7058 10.3309C31.6941 13.5887 17.4502 27 17.4502 27C17.4502 27 3.26866 14.5792 2.19304 10.3309C1.36821 7.0732 3.01771 2 10.4397 2.00006C13.636 2.00009 17.4502 5.98248 17.4502 5.98248C17.4502 5.98248 22.1208 2 25.6961 2C32.2935 2 33.7176 7.0732 32.7058 10.3309Z" fill="white" stroke="white" stroke-width="4"/>
                     </svg>
-                    <p>Натхнення для подорожей</p>
+                    <p>{t('ad.trip')}</p>
                 </li>
                 <li className='icon-box pray'>
                         <svg className='pray-left' width="148" height="47" viewBox="0 0 148 47" fill="none" xmlns="http://www.w3.org/2000/svg">

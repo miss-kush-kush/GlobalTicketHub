@@ -12,18 +12,32 @@
     display: flex;
     margin: 2rem;
     cursor: pointer;
+    height: 3rem;
 }
 
 .navbar>ul{
     padding: 0;
     margin: 0;
     list-style: none;
-    display: flex;
+    display: flex;  
     gap: 6rem;
 }
-.navbar li {
+.main-ul li {
     display: flex;
     margin-top: 1.5rem;
+}
+.navs li {
+    margin-top: 0;
+}
+.navbar li>ul{
+    list-style: none;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    display: flex;
+}
+.navs {
+    width:690px
 }
 .navbar a{
     color: black;

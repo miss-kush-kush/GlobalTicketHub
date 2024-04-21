@@ -18,6 +18,9 @@ body{
   padding-right: 1rem;
   margin-right: 35px;
 }
+.Toastify__progress-bar--default {
+  background: #F07B6A;
+}
 
 
 

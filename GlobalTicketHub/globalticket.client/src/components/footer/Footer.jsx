@@ -1,13 +1,15 @@
 import './styles/Footer.css'
+import { useTranslation } from 'react-i18next'
 const Footer = ()=>{
+    const {t} = useTranslation()
     return <footer>
         <ul>
             <li>
                 <div className='a-container'>
-                    <a href="">Партнерська програма</a>
-                    <a href="">Про нас</a>
-                    <a href="">Довідка</a>
-                    <a href="">Умови користування</a>
+                    <a href="">{t('footer.a.program')}</a>
+                    <a href="">{t('footer.a.aboutUs')}</a>
+                    <a href="">{t('footer.a.help')}</a>
+                    <a href="">{t('footer.a.terms')}</a>
                 </div>
             </li>
             <li>
@@ -60,8 +62,8 @@ const Footer = ()=>{
                 </p>
             </li>
             <li className='last-li'>
-                <p className='bold-p'>Квитки на край світу Q-Pass.ua</p>
-                <p>Замовлення квитків он-лайн - це надзвичайно просто. Один тиць і квитки готові!</p>
+                <p className='bold-p'>{t('footer.ticket')}</p>
+                <p>{t('footer.desc')}</p>
             </li>
         </ul>
     </footer>

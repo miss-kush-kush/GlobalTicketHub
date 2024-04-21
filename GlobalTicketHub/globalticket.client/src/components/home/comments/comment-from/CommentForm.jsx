@@ -4,7 +4,9 @@ import { useState, useContext } from 'react'
 import { Rate } from 'antd'
 import AuthContext from '../../../../contexts/AuthContext'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 const CommentForm = () =>{
+    const {t} = useTranslation()
     const[text,setText] = useState('')
     const[rate,setRate] = useState(5)
     const {sendComment} = useContext(AuthContext)
@@ -17,7 +19,7 @@ const CommentForm = () =>{
         setText('')
     }
     return <div className='comment-form-block'>
-        <h1>Залиш свій коментар та допоможи нам покращити роботу!</h1>
+        <h1>{t('comment.form.title')}</h1>
         <div className='comment-form'>
             <div className='comment-avatar'>
                 <img src={avatar} alt="" />
@@ -27,7 +29,7 @@ const CommentForm = () =>{
                         <textarea name='text' value={text} onChange={(e)=>{setText(e.target.value)}} />
                         <div className='rate-block'>
                             <Rate className='rate-bar' onChange={setRate} size='small' allowHalf value={rate}/>
-                            <input type="submit" value={"Відправити"} />    
+                            <input type="submit" value={t('comment.form.send')} />    
                         </div>
                     </div>
                 </form>

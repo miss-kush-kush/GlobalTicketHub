@@ -1,12 +1,13 @@
 import './styles/SetDiv.css'
-const SetLanguageDiv = ({setLanguage,setVisible}) =>{
+import i18next from 'i18next'
+const SetLanguageDiv = ({setVisible}) =>{
     const handle = () =>{
         setVisible(false)
     }
     return <div className="setdiv setlang">
-        <p onClick={()=>{setLanguage("Укр"); handle();}}>Укр</p>
+        <p onClick={()=>{i18next.changeLanguage('uk'); handle();}}>Укр</p>
         <div className='divider'></div>
-        <p onClick={()=>{setLanguage("Eng"); handle();}}>Eng</p>
+        <p onClick={()=>{i18next.changeLanguage('en'); handle();}}>Eng</p>
     </div>
 }
 export default SetLanguageDiv;

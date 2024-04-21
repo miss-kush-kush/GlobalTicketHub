@@ -5,9 +5,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-
+import { useTranslation } from "react-i18next";
 export default function Registr({setVisible}) {
-  const [submitValue, setSubmitValue] = useState('РЕЄСТРАЦІЯ')
+  const {t} = useTranslation()
+  const [submitValue, setSubmitValue] = useState(t('auth.regCaps'))
   const [isLoading, setIsLoading] = useState(false)
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -64,12 +65,12 @@ export default function Registr({setVisible}) {
   const handle = async (event) =>{
     event.preventDefault()
     setIsLoading(true)
-    setSubmitValue('...Опрацювання')
-    const firstName = event.target.elements.firstName.value;
-    const lastName = event.target.elements.lastName.value;
-    const phone = event.target.elements.phone.value;
-    const email = event.target.elements.email.value;
-    const password = event.target.elements.password.value;
+    setSubmitValue(t('auth.processing'))
+    const firstName = formik.values.firstName
+    const lastName = formik.values.lastName;
+    const phone = formik.values.phone;
+    const email = formik.values.email;
+    const password = formik.values.password;
     let res = await signup(firstName,lastName,phone,email,password)
     if(res.status == 200){
       toast.success(res.message)
@@ -88,7 +89,7 @@ export default function Registr({setVisible}) {
           <input
             type="text"
             name="firstName"
-            placeholder="Ім'я*"
+            placeholder={t('auth.firstName')}
             value={formik.values.firstName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -104,7 +105,7 @@ export default function Registr({setVisible}) {
           <input
             type="text"
             name="lastName"
-            placeholder="Прізвище*"
+            placeholder={t('auth.lastName')}
             value={formik.values.lastName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -155,7 +156,7 @@ export default function Registr({setVisible}) {
           <input
             type={passwordVisible ? "text" : "password"}
             name="password"
-            placeholder="Пароль*"
+            placeholder={t('auth.password')}
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -173,7 +174,7 @@ export default function Registr({setVisible}) {
           <input
             type={confirmPasswordVisible ? "text" : "password"}
             name="confirmPassword"
-            placeholder="Підтвердіть*"
+            placeholder={t('auth.confirmPassword')}
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -188,7 +189,7 @@ export default function Registr({setVisible}) {
           
         </div>
 
-        <a className="must-have"> *Обов'язкові поля </a>
+        <a className="must-have"> {t('auth.required')} </a>
 
         <div className="checkbox-container-accept">
           <div
@@ -199,14 +200,12 @@ export default function Registr({setVisible}) {
           </div>
           <div className="text-agree">
             <label htmlFor="agreementChecked">
-              <a>*</a>Натисканням кнопки реєстрації, я приймаю умови <a href="">договору оферти</a> і не заперечую
-              проти обробки моїх <a href="">персональних даних</a> та їх передачі третім особам (авіперевізнику та
-              іншим).
+              <a>*</a>{t('auth.desc.a1')} <a href="">{t('auth.desc.a2')}</a>{t('auth.desc.a3')}<a href="">{t('auth.desc.a4')}</a>{t('auth.desc.a5')}
             </label>
           </div>
           
         </div>
-        <button disabled={isLoading} type="submit">РЕЄСТРАЦІЯ</button>
+        <button disabled={isLoading} type="submit">{submitValue}</button>
       </div>
     </form>
   );

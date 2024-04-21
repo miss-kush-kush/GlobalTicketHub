@@ -1,47 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './AuthForm.css';
 import Login from './pages/Login'
 import Registr from './pages/Registr'
+import { useTranslation } from 'react-i18next';
 
+const AuthForms = ({setVisible})=>{
+  const {t} = useTranslation()
+  const[activeForm, setActiveForm] = useState('login')
 
-class AuthForms extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeForm: 'login',
-    };
-  }
-
-  handleFormSwitch = (newForm) => {
-    this.setState({ activeForm: newForm });
-  };
-
-  render() {
-    return (
-      
-        <div className="auth-card">
+  return (
+          <div className="auth-card">
           <div className="buttons-container">
           <button
-              onClick={() => this.handleFormSwitch('login')}
-              className={this.state.activeForm === 'register' ? 'active' : ''}
+              onClick={() => setActiveForm('login')}
+              className={activeForm === 'register' ? 'active' : ''}
             >
-              Аутентифікація
+              {t('auth.sign')}
             </button>
             <button
-              onClick={() => this.handleFormSwitch('register')}
-              className={this.state.activeForm === 'login' ? 'active' : ''}
+              onClick={() => setActiveForm('register')}
+              className={activeForm === 'login' ? 'active' : ''}
             >
-              Реєстрація
+              {t('auth.reg')}
             </button>
             {/* Place the forms below the buttons */}
             
           </div>
           <div className="forms-container">
-                  {this.state.activeForm === 'login' ? <Login setVisible={this.props.setVisible}/> : <Registr setVisible={this.props.setVisible}/>}
+                  {activeForm === 'login' ? <Login setVisible={setVisible}/> : <Registr setVisible={setVisible}/>}
           </div>
         </div>
-    );
-  }
+  );
 }
 
 export default AuthForms;

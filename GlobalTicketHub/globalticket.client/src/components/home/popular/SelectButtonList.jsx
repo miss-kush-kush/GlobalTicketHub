@@ -3,19 +3,21 @@ import { useState } from 'react'
 import './styles/PopularRoute.css'
 import SelectTransportButton from './SelectTransportButton'
 import {train, bus, airplane} from './popularRoutesLists'
+import { useTranslation } from 'react-i18next'
 const SelectButtonList = ({setRoutes}) =>{
-    const [active,setActive] = useState("Потяги")
+    const {t} = useTranslation()
+    const [active,setActive] = useState(t('popular.train'))
     const button = [{
         routes:train,
-        text:"Потяги"
+        text:t('popular.train')
     },
     {
         routes:bus,
-        text:"Автобуси"
+        text:t('popular.bus')
     },
     {
         routes:airplane,
-        text:"Авіаквитки"
+        text:t('popular.air')
     }]
     return <div className='select-transport-button-list'>
         {button.map(bt=><SelectTransportButton
