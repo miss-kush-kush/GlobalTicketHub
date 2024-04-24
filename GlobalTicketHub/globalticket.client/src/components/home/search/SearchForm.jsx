@@ -1,14 +1,17 @@
 import { useFormik } from 'formik';
 import { validationSchema } from "./validSchema";
 import './styles/SearchForm.css'
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import TicketContext from '../../../contexts/TicketContext';
 const SearchForm = ({startPoint,endPoint}) => {
+    const {setRoute} = useContext(TicketContext)
     const {t} = useTranslation()
     const navigate = useNavigate()
     const onSubmit = (values)=>{
-        navigate(`/search/train/${values.beginPoint}/${values.endPoint}`)
+        setRoute(values.beginPoint,values.endPoint)
+        navigate(`/search/train/`)
         window.scrollTo({
             top: 400,
             behavior: 'smooth'

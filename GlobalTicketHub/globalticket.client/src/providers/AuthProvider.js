@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from "../contexts/AuthContext"
 import authReducer from "../reducers/authReducer"
 import axios from "axios"
-import { toast } from "react-toastify";
 const initialState ={
     token: null,
     user: null

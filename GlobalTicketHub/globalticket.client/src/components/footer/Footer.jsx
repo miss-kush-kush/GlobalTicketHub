@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import './styles/Footer.css'
 import { useTranslation } from 'react-i18next'
 const Footer = ()=>{
@@ -6,10 +7,10 @@ const Footer = ()=>{
         <ul>
             <li>
                 <div className='a-container'>
-                    <a href="">{t('footer.a.program')}</a>
-                    <a href="">{t('footer.a.aboutUs')}</a>
-                    <a href="">{t('footer.a.help')}</a>
-                    <a href="">{t('footer.a.terms')}</a>
+                    <NavLink to="/">{t('footer.a.program')}</NavLink>
+                    <NavLink href="">{t('footer.a.aboutUs')}</NavLink>
+                    <NavLink href="">{t('footer.a.help')}</NavLink>
+                    <NavLink href="">{t('footer.a.terms')}</NavLink>
                 </div>
             </li>
             <li>

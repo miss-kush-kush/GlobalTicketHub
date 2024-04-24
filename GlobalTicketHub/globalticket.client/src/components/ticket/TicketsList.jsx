@@ -1,24 +1,28 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Ticket from "./Ticket"
 import { useTranslation } from "react-i18next"
 import Loader from "../loader/Loader"
 import { toast } from "react-toastify"
 import SortBlock from "./sort-block/SortBlock"
+import TicketContext from "../../contexts/TicketContext"
 const TicketsList = ({type}) =>{
+    const {getTickets} = useContext(TicketContext)
     const {t} = useTranslation()
     const [tickets, setTickets] = useState([])
     const [isLoad, setIsLoad] = useState(false)
     const [sort, setSort] = useState('all')
     useEffect(()=>{
             setIsLoad(true)
-            axios.get('http://localhost:5007/api/tickets/train').then(res=> {
-                    setTickets(res.data)
-                    setIsLoad(false)
+            getTickets().then(res=> {
+                if(res!=false) {
+                    setTickets(res)
+                    
+                } else {
+                    setTickets([])
                 }
-            ).catch(e=>{
-                toast.error(t('toast.errors.notFound'))
             })
+            setIsLoad(false)
     },[])
     const sortMap = {
         all: ()=>{},

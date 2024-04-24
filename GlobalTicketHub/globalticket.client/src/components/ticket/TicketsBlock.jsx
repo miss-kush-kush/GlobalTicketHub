@@ -10,7 +10,6 @@ const TicketsBlock = ({type}) =>{
     const {start, end} = useParams();
     //<Ticket startTime={'00:00'} endTime={'08:30'} duration={'08:30'} transportName={'110K'} route={'s-sa'} type={"Інтерсіті"}/>
     return <div className="tickets-block">
-        <h1>{t('searchResult.schedule',{type:typeText, start:start, end:end})}</h1>
         <TicketsList type={typeText}/>
     </div>
 }

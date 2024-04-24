@@ -4,13 +4,18 @@ import SeatField from "./SeatField";
 import './styles/SeatPicker.css'
 import Carriage from "./Carriage";
 import { seats } from "./Seat";
+import { useNavigate } from "react-router-dom";
 const SeatPicker = () =>{
+    const naigate = useNavigate();
     const [price, setPrice] = useState(199.56);
     const [seat, setSeat] = useState(0)
     const [carriageSeats,setCarriageSeats]=useState({})
     const [bookedSeats,setBookedSeats] = useState([])
     const [activeCarriage, setActiveCarriage] = useState(2)
     const {t} =  useTranslation();
+    const handle = ()=>{
+        naigate("/train/client")
+    }
     /*{t('seat.carriage',{number:activeCarriage})} */
     return <div className="seat-picker">
         <ul className="seat-picker-list">
@@ -75,9 +80,9 @@ const SeatPicker = () =>{
                     <div className="seat-price-box">
                         <div className="seat-price">
                             <p style={{fontFamily:"Fixel Display Light", color:"#898989"}}>{t('seat.ticket',{number:bookedSeats.length})}</p>
-                            <p>{Math.round(price*bookedSeats.length)}<span style={{marginLeft:".2rem", fontSize:"24px"}}>грн</span></p>
+                            <p style={{fontSize:"24px"}}>{Math.round(price*bookedSeats.length)}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>
-                        <button disabled={!bookedSeats.length>0} onClick={()=>{console.log(bookedSeats)}}>{t('buttons.continue')}</button>
+                        <button disabled={!bookedSeats.length>0} onClick={handle}>{t('buttons.continue')}</button>
                     </div>
                 </div>
             </li>

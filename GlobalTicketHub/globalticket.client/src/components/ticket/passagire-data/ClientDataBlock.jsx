@@ -7,7 +7,9 @@ import moment from 'moment'
 import 'moment/locale/uk'
 import i18next from 'i18next'
 import TicketDataSimple from "./ticket-data/TicketDataSimple";
+import { useNavigate } from "react-router-dom";
 const ClientDataBlock = ()=>{
+    const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
     const [transportName, setTransportName] = useState("131П")
     const [route, setRoute] = useState("Дніпро-Головний - Львів")
@@ -33,9 +35,9 @@ const ClientDataBlock = ()=>{
         moment.locale(i18next.language)
         setDates()
     },[i18next.language])
-    const handleInputChange = (e) => {
-        setPromoCode(e.target.value);
-    };
+    const handle = ()=> {
+        navigate('/payment')
+    }
     const ticketSend = useFormik({
         initialValues: {
             phone:"",
@@ -98,7 +100,7 @@ const ClientDataBlock = ()=>{
                     </div>
                     <div className="promo-code">Промкод
                     </div>
-                    <button className="data-button"><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>До сплати </p>  
+                    <button className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>До сплати </p>  
                         <div className="seat-price" style={{marginRight:"0"}}>
                             <p style={{fontSize:"24px"}}>{totalPrice}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>

@@ -112,6 +112,7 @@ export default function Login({setVisible}) {
               </div>
               <label className="text-remember">{t('auth.remember')}</label>
             </div>
+            <br />
             <a href="">{t('auth.forgot')}</a>
           </div>
 
