@@ -1,5 +1,6 @@
 import TicketData from "./ticket-data/TicketData";
-import { useState, useEffect } from "react";
+import TicketDataBus from "./ticket-data/TicketDataBus";
+import { useState, useEffect, useContext } from "react";
 import './styles/ClientDataBlock.css'
 import InputMask from 'react-input-mask';
 import { useFormik } from "formik";
@@ -7,8 +8,10 @@ import moment from 'moment'
 import 'moment/locale/uk'
 import i18next from 'i18next'
 import TicketDataSimple from "./ticket-data/TicketDataSimple";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import TicketContext from "../../../contexts/TicketContext";
 const ClientDataBlock = ()=>{
+    const {getSelectTickets, getTicketPrice} = useContext(TicketContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
     const [transportName, setTransportName] = useState("131П")
@@ -17,8 +20,7 @@ const ClientDataBlock = ()=>{
     const [startDate, setStartDate] = useState("22.05.2024");
     const [endTime, setEndTime] = useState("06:00");
     const [endDate, setEdDate] = useState("23.05.2024");
-    const [promocode, setPromoCode] = useState('');
-    const [prices, setPrices] = useState([])
+    const [prices, setPrices] = useState(getSelectTickets().map(t=>getTicketPrice()))
     const setDates = ()=>{
         const fDate = moment(startDate, 'DD.MM.YYYY');
         const fFormattedDate = fDate.format('D MMMM');
@@ -35,6 +37,11 @@ const ClientDataBlock = ()=>{
         moment.locale(i18next.language)
         setDates()
     },[i18next.language])
+    useEffect(()=>{
+        let sum=0;
+        prices.forEach(num=>sum+=num)
+        setTotalPrice(sum)
+    },[prices])
     const handle = ()=> {
         navigate('/payment')
     }
@@ -45,11 +52,18 @@ const ClientDataBlock = ()=>{
             email:"",
         }
     })
+    let priceIndex = 0;
+    let index = 0;
+    const tickets = getSelectTickets().map(ticket=>{
+            let el =  <TicketData id={index} price={getTicketPrice()} setPrices={setPrices} prices={prices}/>
+            ++index;
+            return el;
+    })
     return <div className="client-data-block">
         <ul>
             <li>
                 <div>
-                    <TicketData setTotalPrice={setTotalPrice} totalPrice={totalPrice} price={Number(2789.99)}/>
+                    {tickets}
                 </div> 
                 <div className="ticket-send-data-block">
                     <h4>Відправити копію квитка</h4>
@@ -96,13 +110,16 @@ const ClientDataBlock = ()=>{
                         </div>
                     </div>
                     <div>
-                        <TicketDataSimple client={"Пасажир 1"} price={totalPrice}/>
+                        {prices.map(p=>{
+                            let el = <TicketDataSimple client={priceIndex+1} price={p}/>
+                            ++priceIndex;
+                            return el;})}
                     </div>
                     <div className="promo-code">Промкод
                     </div>
-                    <button className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>До сплати </p>  
+                    <button disabled={ticketSend.values.phone=="" || ticketSend.values.email==""} className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>До сплати </p>  
                         <div className="seat-price" style={{marginRight:"0"}}>
-                            <p style={{fontSize:"24px"}}>{totalPrice}<span style={{marginLeft:".2rem"}}>грн</span></p>
+                            <p style={{fontSize:"24px"}}>{parseFloat(totalPrice.toFixed(2))}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>
                     </button>
                 </div>

@@ -1,7 +1,6 @@
 .ad-block{
     position: relative;
     z-index: 0;
-    background-image: url('../../../../image/adback.svg');
     background-repeat: no-repeat;
     background-attachment: fixed;  
     background-size:cover;
@@ -10,6 +9,16 @@
     margin: 0;
     overflow: hidden;
 }
+.ad-block-train {
+    background-image: url('../../../../image/adback.svg');
+}
+.ad-block-bus {
+    background-image: url('../../../../image/busad.svg');
+}
+.ad-block-air {
+    background-image: url('../../../../image/airad.svg');
+}
+
 .phone-block{
     position: absolute;
     margin: 0;

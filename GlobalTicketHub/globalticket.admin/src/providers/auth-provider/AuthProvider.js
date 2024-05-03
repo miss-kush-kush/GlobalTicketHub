@@ -119,7 +119,6 @@ export const AuthProvider = ({children}) =>{
     }
 
     const isAuth = () =>{
-        console.log('token: '+state.token)
         return state.token!=null;
     }
 

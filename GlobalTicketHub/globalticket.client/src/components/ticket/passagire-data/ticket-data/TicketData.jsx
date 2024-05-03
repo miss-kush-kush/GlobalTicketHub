@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import './styles/TicketData.css'
 import { useEffect, useState } from "react";
-const TicketData = ({setTotalPrice,totalPrice,price}) =>{
+const TicketData = ({id,price,setPrices,prices}) =>{
     const [selectedOption, setSelectedOption] = useState("1"); 
     const [visible, setVisible] = useState(false)
     const [ticketPrice, setTicketPrice]=useState(price)
@@ -24,15 +24,19 @@ const TicketData = ({setTotalPrice,totalPrice,price}) =>{
     const {values, handleChange, handleBlur} = useFormik({
         initialValues: {
             name: "",
-            surname: "",
-            selectPrice: "1"
+            surname: ""
         }
     })
+    useEffect(()=>{prices[id]=ticketPrice},[])
     useEffect(()=>{
-        setTotalPrice(totalPrice+ticketPrice)
+        setPrices(prevPrices => {
+            const updatedPrices = [...prevPrices];
+            updatedPrices[id] = ticketPrice; 
+            return updatedPrices; 
+        });
     },[ticketPrice])
     return <div className="ticket-data-block">
-        <p>Пасажир 1 <span style={{color:"#9D9D9D"}}>Плацкарт, Вагон 7, місце 44</span></p>
+        <p>Пасажир {id+1} <span style={{color:"#9D9D9D"}}>Плацкарт, Вагон 7, місце 44</span></p>
         <div className="radio-block">
             <div>
                 <label class="container">
@@ -59,7 +63,7 @@ const TicketData = ({setTotalPrice,totalPrice,price}) =>{
                 <p>{ticketPrice}<span style={{marginLeft:".2rem"}}>грн</span></p>
             </div>
         </div>
-        <div className="client-name-block">
+        <div className="client-name-block client-name-block-train">
             <ul>
                 <li>
                     <label> ПРІЗВИЩЕ
@@ -114,7 +118,7 @@ const TicketData = ({setTotalPrice,totalPrice,price}) =>{
                     </div>   
                     <input name="tea" type="checkbox" checked={checkboxes.tea} onChange={(e)=>{
                         handleCheckboxChange(e);
-                        checkboxes.drink?setTicketPrice(ticketPrice-15):setTicketPrice(ticketPrice+15)}}/>
+                        checkboxes.tea?setTicketPrice(ticketPrice-15):setTicketPrice(ticketPrice+15)}}/>
                     <span class="checkbox-checkmark"></span>
                 </label>
                 <label class="checkbox-container">   
@@ -126,7 +130,7 @@ const TicketData = ({setTotalPrice,totalPrice,price}) =>{
                     </div>   
                     <input name="coffee" type="checkbox" checked={checkboxes.coffee} onChange={(e)=>{
                         handleCheckboxChange(e);
-                        checkboxes.drink?setTicketPrice(ticketPrice-25):setTicketPrice(ticketPrice+25)}}/>
+                        checkboxes.coffee?setTicketPrice(ticketPrice-25):setTicketPrice(ticketPrice+25)}}/>
                     <span class="checkbox-checkmark"></span>
                 </label>
             </div>

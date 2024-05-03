@@ -6,7 +6,7 @@
     display: grid;
     padding: 2.5rem 1rem;
     margin-top: .5rem;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 48%;
     gap: 1.5rem;
     border: 1px solid #F07B6A;
     border-radius: 15px;
@@ -80,12 +80,13 @@
 }
 .tickets-tips ul{
     list-style: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     margin: 0;
     padding: 0;
     padding-bottom: 1rem;
     padding-left: 1rem;
-    gap: 45.5rem;
+    gap: 42.5rem;
     align-items: center;
 }
 .tickets-tips p{

@@ -6,13 +6,19 @@
 .photo-back{
     position: relative;
     z-index: 0;
-    background-image: url('../../../../image/pexels-pixabay-63324\ 1.png');
+    
     background-repeat: no-repeat;
     background-attachment: fixed;  
     background-size:cover;
     width: 100%;
     height: 40rem;
     margin: 0;
+}
+.photo-back-air{
+    background-image: url('../../../../image/sky.png');
+}
+.photo-back-earth{
+    background-image: url('../../../../image/pexels-pixabay-63324\ 1.png');
 }
 .photo-back h1{
     font-family: Fixel Display Light;

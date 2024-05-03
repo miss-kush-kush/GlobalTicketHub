@@ -10,7 +10,7 @@ const TicketsBlock = ({type}) =>{
     const {start, end} = useParams();
     //<Ticket startTime={'00:00'} endTime={'08:30'} duration={'08:30'} transportName={'110K'} route={'s-sa'} type={"Інтерсіті"}/>
     return <div className="tickets-block">
-        <TicketsList type={typeText}/>
+        <TicketsList typeText={typeText} type={type}/>
     </div>
 }
 export default TicketsBlock

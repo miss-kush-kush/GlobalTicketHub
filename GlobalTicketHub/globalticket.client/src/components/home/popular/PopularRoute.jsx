@@ -4,7 +4,7 @@ import './styles/PopularRoute.css';
 import SelectButtonList from './SelectButtonList'
 import PopularRouteList from './PopularRouteList';
 import { useTranslation } from 'react-i18next';
-const PopularRoute = ({setPoints})=>{
+const PopularRoute = ({setPoints, isBus=false})=>{
     const {t} = useTranslation()
     const[routes, setRoutes] = useState(train)
     return <div className='popular-route-block'>
@@ -16,8 +16,11 @@ const PopularRoute = ({setPoints})=>{
                 <SelectButtonList setRoutes={setRoutes}/>
             </li>
             <li>
-                <PopularRouteList setPoints={setPoints} routeList={routes.routeList}/>
+                    <PopularRouteList setPoints={setPoints} routeList={routes.routeList}/>
             </li>
+            {}
+            
+           
         </ul>
     </div>
 }

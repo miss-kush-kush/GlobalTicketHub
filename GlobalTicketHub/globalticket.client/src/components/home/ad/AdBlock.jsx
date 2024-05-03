@@ -1,9 +1,9 @@
 import PhoneSvg from './images/PhoneSvg';
 import './styles/AdBlock.css'
 import { useTranslation } from 'react-i18next';
-const AdBlock = () =>{
+const AdBlock = ({type}) =>{
     const {t} = useTranslation()
-    return <div className='ad-block'> 
+    return <div className={type=='train'?'ad-block ad-block-train':type=='bus'?'ad-block ad-block-bus':'ad-block ad-block-air'}> 
         <div className='phone-block'>
            <PhoneSvg/>
         </div>

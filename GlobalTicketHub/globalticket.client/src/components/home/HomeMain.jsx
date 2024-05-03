@@ -10,7 +10,7 @@ const HomeMain = ({setPoints})=>{
     const {isAuth} = useContext(AuthContext)
     return<>
         <TipsBlock/>
-        <AdBlock/>
+        <AdBlock type={"train"}/>
         <Tips2/>
         <PopularRoute setPoints={setPoints}/>
         <CommentsBlock/>

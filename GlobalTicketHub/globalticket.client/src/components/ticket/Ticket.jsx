@@ -63,7 +63,12 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
             </div>
         </div>
         <div>
-            {places.map(p=> <PlaceBlock placeName={p.placeName} price={p.price} count={p.numberOfPlaces}/>)}
+            {places.map(p=> <PlaceBlock placeName={p.placeName} price={p.price} count={p.numberOfPlaces} clickData={{
+                startTime: startTime,
+                endTime: endTime,
+                startPoint: route.split('-')[0],
+                endPoint: route.split('-')[1],
+            }}/>)}
         </div>
     </div>
 }

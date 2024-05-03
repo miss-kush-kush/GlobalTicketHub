@@ -1,20 +1,23 @@
 import { useTranslation } from "react-i18next"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SeatField from "./SeatField";
 import './styles/SeatPicker.css'
 import Carriage from "./Carriage";
 import { seats } from "./Seat";
 import { useNavigate } from "react-router-dom";
+import TicketContext from "../../../contexts/TicketContext";
 const SeatPicker = () =>{
-    const naigate = useNavigate();
+    const {getTrainRoute, setSelectTickets} = useContext(TicketContext)
+    const navigate = useNavigate();
     const [price, setPrice] = useState(199.56);
     const [seat, setSeat] = useState(0)
-    const [carriageSeats,setCarriageSeats]=useState({})
+    const [carriageSeats,setCarriageSeats]=useState(seats)
     const [bookedSeats,setBookedSeats] = useState([])
     const [activeCarriage, setActiveCarriage] = useState(2)
     const {t} =  useTranslation();
     const handle = ()=>{
-        naigate("/train/client")
+        setSelectTickets(bookedSeats,price)
+        navigate("/train/client")
     }
     /*{t('seat.carriage',{number:activeCarriage})} */
     return <div className="seat-picker">
@@ -26,13 +29,12 @@ const SeatPicker = () =>{
                         <p>Звичайний</p>
                     </div>
                     <div className="route-text">
-                        <p>17:58 <span>Київ-Пасажирський</span></p>
-                        <p>09:11 <span>Львів</span></p>
+                        <p>{getTrainRoute().startTime} <span>{getTrainRoute().startPoint}</span></p>
+                        <p>{getTrainRoute().endTime} <span>{getTrainRoute().endPoint}</span></p>
                     </div>
                     <div className="carriage-field">
                         <Carriage number={2} freePlaces={3} active={activeCarriage} setActive={setActiveCarriage} even={true}/>
                         <Carriage number={3} freePlaces={5} active={activeCarriage} setActive={setActiveCarriage} even={false}/>
-                        
                     </div>
                 </div>
             </li>
@@ -69,7 +71,7 @@ const SeatPicker = () =>{
                 </div>
             </li>
             <li>
-                <SeatField seats={seats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats} setSeat={setSeat}/>
+                <SeatField seats={carriageSeats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats} setSeat={setSeat}/>
             </li>
             <li className="seat-li">
                 <div className="seat-price-block">
@@ -80,7 +82,7 @@ const SeatPicker = () =>{
                     <div className="seat-price-box">
                         <div className="seat-price">
                             <p style={{fontFamily:"Fixel Display Light", color:"#898989"}}>{t('seat.ticket',{number:bookedSeats.length})}</p>
-                            <p style={{fontSize:"24px"}}>{Math.round(price*bookedSeats.length)}<span style={{marginLeft:".2rem"}}>грн</span></p>
+                            <p style={{fontSize:"24px"}}>{parseFloat((price*bookedSeats.length).toFixed(2))}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>
                         <button disabled={!bookedSeats.length>0} onClick={handle}>{t('buttons.continue')}</button>
                     </div>

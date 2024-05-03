@@ -3,6 +3,7 @@
   border: 1px solid #F07B6A;
   border-radius: 11px;
   padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
 }
 .ticket-data-block>p{
   margin: 0rem;
@@ -109,13 +110,21 @@
   width: 80%;
   
 }
-.client-name-block ul{
+.client-name-block-train ul{
   padding: 0;
   list-style: none;
   display: grid;
   grid-template-columns: 40% 40%;
   gap: 1rem;
 }
+.client-name-block-bus ul{
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 40% 40% 30%;
+  gap: 1rem;
+}
+
 .client-name-block input {
   border: none;
   font-family: Fixel Display Light;
@@ -264,6 +273,7 @@
   margin: 0;
 }
 .suppliment-block{
+  z-index: 1;
   position: absolute;
   top: 78%;
   background-color: white;
@@ -283,4 +293,5 @@
   padding: 1rem 1.5rem;
   background-color: #F5F5F5;
   border-radius: 11px;
+  margin-bottom: .5rem;
 }
