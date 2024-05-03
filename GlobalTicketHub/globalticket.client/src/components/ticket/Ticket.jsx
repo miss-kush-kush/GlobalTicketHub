@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import i18next from 'i18next'
 import 'moment/locale/uk'
 import PlaceBlock from './place-block/PlaceBlock'
+import { v4 as uuidv4 } from 'uuid';
 const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName, route, type='', places}) =>{
     const[firstDate, setFirstDate] = useState('')
     const[lastDate, setLastDate] = useState('')
@@ -63,7 +64,7 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
             </div>
         </div>
         <div>
-            {places.map(p=> <PlaceBlock placeName={p.placeName} price={p.price} count={p.numberOfPlaces} clickData={{
+            {places.map(p=> <PlaceBlock key={uuidv4()} placeName={p.placeName} price={p.price} count={p.numberOfPlaces} clickData={{
                 startTime: startTime,
                 endTime: endTime,
                 startPoint: route.split('-')[0],

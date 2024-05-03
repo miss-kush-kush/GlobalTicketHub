@@ -8,12 +8,17 @@ import TicketContext from '../../../contexts/TicketContext';
 import { useLocation } from 'react-router-dom';
 const SearchForm = ({startPoint,endPoint}) => {
     const location = useLocation()
-    const {setRoute} = useContext(TicketContext)
+    const {setRoute, route, date} = useContext(TicketContext)
     const {t} = useTranslation()
     const navigate = useNavigate()
     const onSubmit = (values)=>{
-        setRoute(values.beginPoint,values.endPoint)
-        let nextLocation = location.pathname=='/'?'/train/search':location.pathname=='/home-bus'?'/home-bus/bus/search':'/home-airline/air/search'
+        let nextLocation =''
+        setRoute(values.beginPoint,values.endPoint,values.date)
+        if(location.pathname=='/' || location.pathname == '/train/search') {
+            nextLocation = '/train/search'
+        } else {
+            nextLocation = '/home-bus/bus/search'
+        }
         navigate(nextLocation)
         window.scrollTo({
             top: 400,
@@ -22,20 +27,32 @@ const SearchForm = ({startPoint,endPoint}) => {
     }
     const {values, errors, touched, handleBlur, handleChange, handleSubmit,setValues} = useFormik({
         initialValues: {
-            beginPoint: startPoint,
-            endPoint: endPoint,
+            beginPoint: '',
+            endPoint: '',
             date: new Date().toISOString().slice(0, 10)
         },
         validationSchema: validationSchema,
         onSubmit
     })
     useEffect(()=>{
-        setValues({
-            ...values,
-            beginPoint: startPoint,
-            endPoint: endPoint
-        })
+        if(startPoint!=null && endPoint!=null){
+            setValues({
+                ...values,
+                beginPoint: startPoint,
+                endPoint: endPoint
+            })
+        }
     },[startPoint,endPoint])
+    useEffect(()=>{
+        if(route!=null && date!=null){
+            setValues({
+                ...values,
+                beginPoint: route.startPoint,
+                endPoint: route.endPoint,
+                date: date
+            })
+        }
+    },[route,date])
     return (
         <form onSubmit={handleSubmit} autoComplete="off" className="searchForm">
             <div className="search">

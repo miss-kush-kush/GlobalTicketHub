@@ -13,14 +13,18 @@ const TransportLayout = ({type, prevPath}) =>{
         return formattedDate
     }
     const location = useLocation()
-    const {getRoute} = useContext(TicketContext)
-    const [upText, setUpText] = useState(getRoute().route.startPoint + " - " + getRoute().route.endPoint);
+    const {getRoute, route} = useContext(TicketContext)
+    const [upText, setUpText] = useState(route.startPoint + " - " + route.endPoint);
     const [downText, setDownText] = useState(setDate());
+    useEffect(()=>{
+        setUpText(route.startPoint + " - " + route.endPoint)
+        setDownText(setDate());
+    },[route])
     useEffect(()=>{
         let currentPath = location.pathname.split('/')[2]
         switch(currentPath) {
             case 'search':
-                setUpText(getRoute().route.startPoint + " - " + getRoute().route.endPoint)
+                setUpText(route.startPoint + " - " + route.endPoint)
                 setDownText(setDate());
                 break;
             case 'seat':

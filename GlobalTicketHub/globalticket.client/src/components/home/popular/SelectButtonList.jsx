@@ -5,6 +5,7 @@ import SelectTransportButton from './SelectTransportButton'
 import {train, bus, airplane} from './popularRoutesLists'
 import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
+import { v4 as uuidv4 } from 'uuid';
 const SelectButtonList = ({setRoutes}) =>{
     const {t} = useTranslation()
     const [active,setActive] = useState(t('popular.train'))
@@ -25,6 +26,7 @@ const SelectButtonList = ({setRoutes}) =>{
     }]
     return <div className='select-transport-button-list'>
         {button.map(bt=><SelectTransportButton
+            key={uuidv4()}
             routes={bt.routes}
             setRoutes={setRoutes}
             setActive={setActive}

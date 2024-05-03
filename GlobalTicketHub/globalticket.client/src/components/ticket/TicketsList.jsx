@@ -6,6 +6,7 @@ import Loader from "../loader/Loader"
 import { toast } from "react-toastify"
 import SortBlock from "./sort-block/SortBlock"
 import TicketContext from "../../contexts/TicketContext"
+import { v4 as uuidv4 } from 'uuid';
 const TicketsList = ({typeText ,type}) =>{
     const {getTickets} = useContext(TicketContext)
     const {t} = useTranslation()
@@ -64,7 +65,8 @@ const TicketsList = ({typeText ,type}) =>{
                                                                         transportName={t.transportName} 
                                                                         route={t.route} 
                                                                         type={t.type}
-                                                                        places={t.places}/>})
+                                                                        places={t.places}
+                                                                        key={uuidv4()}/>})
         }
     </div>
 }

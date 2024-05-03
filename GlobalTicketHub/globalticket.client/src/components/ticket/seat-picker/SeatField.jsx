@@ -1,6 +1,7 @@
 import { Row } from 'antd'
 import './styles/SeatPicker.css'
 import Seat from './Seat.jsx'
+import { v4 as uuidv4 } from 'uuid';
 const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
     const evenStuff = (<>
         <Row>
@@ -10,7 +11,8 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                                                                 status={s.status} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}/>
+                                                                setSeat={setSeat}
+                                                                key={uuidv4()}/>
                 }
             })}
         </Row>
@@ -21,7 +23,8 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                                                                 status={s.status} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}/>
+                                                                setSeat={setSeat}
+                                                                key={uuidv4()}/>
                 }
             })}
         </Row>
@@ -34,7 +37,8 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                                                                                     status={s.status} 
                                                                                     selectSeats={selectSeats} 
                                                                                     setSelectSeats={setSelectSeats}
-                                                                                    setSeat={setSeat}/>
+                                                                                    setSeat={setSeat}
+                                                                                    key={uuidv4()}/>
                                     }
                                 })}
                             </Row></> 
@@ -47,7 +51,8 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                                                                 status={s.status} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}/>)}
+                                                                setSeat={setSeat}
+                                                                key={uuidv4()}/>)}
         </Row>
     </>)
     return <div className='seat-field'>

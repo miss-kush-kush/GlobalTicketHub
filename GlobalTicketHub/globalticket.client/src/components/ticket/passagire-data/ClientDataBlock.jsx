@@ -10,6 +10,7 @@ import i18next from 'i18next'
 import TicketDataSimple from "./ticket-data/TicketDataSimple";
 import { useNavigate} from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
+import { v4 as uuidv4 } from 'uuid';
 const ClientDataBlock = ()=>{
     const {getSelectTickets, getTicketPrice} = useContext(TicketContext)
     const navigate = useNavigate()
@@ -55,7 +56,7 @@ const ClientDataBlock = ()=>{
     let priceIndex = 0;
     let index = 0;
     const tickets = getSelectTickets().map(ticket=>{
-            let el =  <TicketData id={index} price={getTicketPrice()} setPrices={setPrices} prices={prices}/>
+            let el =  <TicketData id={index} price={getTicketPrice()} setPrices={setPrices} prices={prices} key={uuidv4}/>
             ++index;
             return el;
     })
@@ -111,7 +112,7 @@ const ClientDataBlock = ()=>{
                     </div>
                     <div>
                         {prices.map(p=>{
-                            let el = <TicketDataSimple client={priceIndex+1} price={p}/>
+                            let el = <TicketDataSimple client={priceIndex+1} price={p} key={uuidv4}/>
                             ++priceIndex;
                             return el;})}
                     </div>

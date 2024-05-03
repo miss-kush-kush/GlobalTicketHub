@@ -26,6 +26,8 @@ import HomeBusMain from './components/home/bus/HomeBusMain';
 import BusSeatPicker from './components/ticket/seat-picker/BusSeatPicker';
 import HomeAirline from './components/home/airline/HomeAirline';
 import HomeAirlineMain from './components/home/airline/HomeAirlineMain';
+import AuthGuard from './components/guards/auth-guard/AuthGuard';
+import RouteGuard from './components/guards/route-guard/RouteGuard';
 function App() {
   const [startPoint, setStartPoint] = useState('')
   const [endPoint, setEndPoint] = useState('')
@@ -42,13 +44,13 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home startPoint={startPoint} endPoint={endPoint}/>}>
                 <Route path='/' element={<HomeMain setPoints={setPoints}/>}/>
-                <Route path='/train' element={<TransportLayout type={'train'}/>}>
+                <Route path='/train' element={<RouteGuard><TransportLayout type={'train'}/></RouteGuard>}>
                   <Route path='search' element={<TicketsBlock type={"TRAIN"}/>}/>
                   <Route path='seat' element={<SeatPicker/>}/>
                   <Route path='client' element={<ClientDataBlock/>}/>
                 </Route>
               </Route>
-              <Route path='/profile' element={<MainProfile />}>
+              <Route path='/profile' element={<AuthGuard><MainProfile /></AuthGuard>}>
                 <Route path='*' element={<HomeProfileBody/>}/>
                 <Route path='ticket/train' element={<TicketList/>}/>
                 <Route path='ticket/bus' element={<TicketList/>}/>
