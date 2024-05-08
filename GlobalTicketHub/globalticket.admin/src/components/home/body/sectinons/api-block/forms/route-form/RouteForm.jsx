@@ -2,69 +2,103 @@ import { useFormik } from "formik"
 import './styles/RouteForm.css'
 import * as Yup from 'yup'
 import { useEffect, useState } from "react"
-const RouteForm = ({dispatch, selectRoute, routes, selectRouteId,setSelectRouteId, setSelectRoute}) =>{
+const RouteForm = ({dispatch, selectRoute, routes, selectRouteId,setSelectRouteId}) =>{
     const onSubmit = () => {
         if(selectRouteId===-1){
             dispatch({
                 type:"ADD",
-                point: values.point
+                point: values.point,
+                arrivalTime: values.arrivalTime,
+                departureTime: values.departureTime,
+                duration: values.duration
             })
         } else {
             dispatch({
                 type:"CHANGE",
                 point: values.point,
+                arrivalTime: values.arrivalTime,
+                departureTime: values.departureTime,
+                duration: values.duration,
                 index: selectRouteId
             })
             setSelectRouteId(-1)
-            selectRoute('')
+            selectRoute({})
         }
-        setValues({...values, point:''})
+        setValues({...values, point:'', departureTime:'',arrivalTime:'',duration:''})
     }
     
     const [routeOprions, setRouteOprions] = useState(['Test','Test2','Test3','Test4','Test5','Test6','Test7','Test8']);
-    const [buttonText, setButtonText] = useState('Додати');
-    
-    
+    const [isEditting, setIsEditting] = useState('Додати');
     
     useEffect(()=>{
         setValues({
             ...values,
-            point:selectRoute
+            point:selectRoute.point,
+            arrivalTime: selectRoute.arrivalTime,
+            departureTime: selectRoute.departureTime,
+            duration: selectRoute.duration
         })
     },[selectRoute])
     useEffect(()=>{
         if(selectRouteId!=-1){
-            setButtonText("Змінити")
+            setIsEditting(true)
         } else {
-            setButtonText("Додати")
+            setIsEditting(false)
         }
     },[selectRouteId])
     
     const {values, handleChange, handleBlur, handleSubmit, setValues} = useFormik({
         initialValues: {
-            point: ''
+            point: '',
+            arrivalTime: '',
+            departureTime: '',
+            duration: ''
+
         },
         validationSchema: Yup.object().shape({
-            point: Yup.string().required('Це поле обов\'язкове для заповнення')
-                                .oneOf(routeOprions,'Не існуючий маршрут')
-                                .notOneOf(routes, 'Це значення вже використовується у маршруті')
-                                
-        }),
+                                        point: Yup.string().required('Це поле обов\'язкове для заповнення')
+                                                            .oneOf(routeOprions,'Не існуючий маршрут')
+                                                            .when('isEditing', (isEditing, schema) =>
+                                                                isEditing
+                                                                    ? schema.notOneOf(routes.map(r => r.point), 'Це значення вже використовується у маршруті')
+                                                                    : schema
+                                                            ),
+                                        arrivalTime: Yup.string().required('Це поле обов\'язкове для заповнення'),
+                                        departureTime: Yup.string().required('Це поле обов\'язкове для заповнення'),
+                                        duration: Yup.string().required('Це поле обов\'язкове для заповнення')}),
         onSubmit
     })
     return <div className="route-form">
         <form action="" autoComplete={false} onSubmit={handleSubmit}>
-            <label htmlFor="">Станція</label>
-            <br />
-            <br />
-            <input list='route_option' name="point" value={values.point} onChange={handleChange} onBlur={handleBlur} />
+            <div>
+                <div className="route-form-block">
+                    <label htmlFor="">Станція
+                        <br />
+                        <input list='route_option' name="point" value={values.point} onChange={handleChange} onBlur={handleBlur} />
+                    </label>
+                    <label htmlFor="">Час прибуття
+                        <br />
+                        <input type="time"  name="arrivalTime" value={values.arrivalTime} onChange={handleChange} onBlur={handleBlur} />
+                    </label>
+                </div>
+                <div className="route-form-block" style={{marginTop:"2.4rem"}}>
+                    <label htmlFor="">Простій
+                        <br />
+                        <input type="time"  name="duration" value={values.duration} onChange={handleChange} onBlur={handleBlur} />
+                    </label>
+                    <label htmlFor="">Час відпарвлення
+                        <br />
+                        <input type="time"  name="departureTime" value={values.departureTime} onChange={handleChange} onBlur={handleBlur} />
+                    </label>
+                </div>
+            </div>
+            
             <datalist id='route_option'>
-                {routeOprions.map(r=><option value={r}/>)}
+                {routeOprions.map((r,i)=><option key={i} value={r}/>)}
             </datalist>
             <br />
             <br />
-            <br />
-            <input type="submit" name="" id="" value={buttonText} />
+            <input type="submit" name="" id="" value={!isEditting?'Додати':'Змінити'} />
         </form>
     </div>
 }

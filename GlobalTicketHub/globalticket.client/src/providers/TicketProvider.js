@@ -3,18 +3,15 @@ import TicketContext from '../contexts/TicketContext'
 import {TYPES, ticketReducer} from '../reducers/ticketReducer'
 import { useEffect, useReducer } from 'react'
 import moment from 'moment'
+import { TrainType } from '../enums/train/trainTypeEnum'
+import { ticketMapper } from '../functions/mappers'
 const initialState ={
     route: null,
     date: null,
     trainRoute: null,
     ticketPrice: null,
-    tickets: null
-}
-const TrainType = {
-    "1": "Night",
-    "2": "NightExpress",
-    "3": "Express",
-    "4": "Intercity",
+    tickets: null,
+    freePlaces: null
 }
 const TRAIN_TICKETS = 'http://localhost:5007/api/home/find-approiate-lines';
 const BUS_TICKETS = 'http://localhost:5007/api/home/bus'
@@ -37,43 +34,11 @@ export const TicketProvider = ({children}) =>{
             if(res.status==200){
                 return ticketMapper(res.data)
             } else {
-                return false
+                return []
             }
         } catch(e) {
-            return false
+            return []
         }
-    }
-
-    const ticketMapper = (data) =>{
-        return data.map(d=>{
-            let sDate = moment(d.departureDate)
-            let fSDATE = sDate.format('DD.MM.YYYY')
-            let eDate = moment(d.arrivalDate)
-            let fEDATE = eDate.format('DD.MM.YYYY')
-            let sTime = moment(d.departureTime, "HH:mm:ss")
-            let fSTIME = sTime.format("HH:mm")
-            let eTime = moment(d.arrivalTime, "HH:mm:ss")
-            let fETIME = eTime.format("HH:mm")
-            let duration = moment(d.duration, "H.m")
-            let formatDuration = duration.format("HH:mm")
-            return{
-            id:d.id,
-            route: d.trainLineDescription,
-            startTime: fSTIME,
-            endTime: fETIME,
-            startDate: fSDATE,
-            endDate: fEDATE,
-            duration: formatDuration,
-            transportName: d.trainLineName,
-            type: TrainType[d.trainType],
-            places:[
-                {
-                    placeName: '',
-                    price: 326,
-                    numberOfPlaces:238
-                }
-            ]}
-        })
     }
 
 
@@ -121,6 +86,12 @@ export const TicketProvider = ({children}) =>{
             }
         })
     }
+    const setFreePlaces = (places) =>{
+        dispatch({
+            type: TYPES.setFreePlaces,
+            freePlaces: places
+        })
+    }
 
     useEffect(()=>{
         const startPoint = localStorage.getItem('start')
@@ -130,7 +101,14 @@ export const TicketProvider = ({children}) =>{
             setRoute(startPoint,endPoint,date)
         }
     },[window.location.href])
-    return <TicketContext.Provider value={{...state, getTickets, getRoute, setRoute, setTrainRoute,  setSelectTickets, getSelectTickets, getTicketPrice}}>
+    return <TicketContext.Provider value={{...state, getTickets, 
+                                                     getRoute, 
+                                                     setRoute, 
+                                                     setTrainRoute,  
+                                                     setSelectTickets, 
+                                                     getSelectTickets, 
+                                                     getTicketPrice,
+                                                     setFreePlaces}}>
         {children}
     </TicketContext.Provider>
 }

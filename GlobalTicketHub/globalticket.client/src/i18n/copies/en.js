@@ -99,6 +99,31 @@ export const en = {
             },
             settings: "Settings"
         },
+        homePage: {
+            h1: "No orders are available",
+            p: "After booking your tickets, your order will be displayed here"
+        },
+        ticketList : {
+            historySelect: {
+                all: "All tickets",
+                actual: "Actual tickets",
+                history: "Order history"
+            },
+            statusSelect: {
+                all: "All statuses",
+                waitingPay: "Waiting for payment",
+                cancelPay: "Canceled paid",
+                return: "Returning a user request",
+                warite: "Write-off confirmed"
+            }
+        },
+        ticket: {
+            details: "More"
+        },
+        filterResult: {
+            p1:"За заданими фільтрами не знайдено жодного  замовлення",
+            p2:"Після бронування квитків ваше замовлення буде відображатися тут"
+        },
         settings: {
             load:"Download the photo",
             data:"Personal data",
@@ -151,7 +176,8 @@ export const en = {
         },
         carriage:"Carriage {{number}}",
         seat: "Seat {{number}}",
-        ticket: "{{number}} tickets"
+        ticket: "{{number}} tickets",
+        normal: 'Standard'
     },
     toast: {
         success: {
@@ -165,5 +191,56 @@ export const en = {
     },
     buttons: {
         continue: "Continue",
+    },
+
+    searchNavbar :{
+        searchResult: "Search result",
+        seatPicker: "Choice of places",
+        clientData: "Passenger data",
+        pay: "Payment"
+    },
+
+    transportLayout: {
+        selectFreeSeats: "Choose the places",
+        freeSeats: "{{count}} free places",
+        clientData: "Passenger data",
+        inputForms: "Fill out the forms below"
+    },
+
+    clientData: {
+        ticketData: {
+            types: {
+                full: "Complete",
+                children: "Children's",
+                student: "Student's" 
+            },
+            inputs: {
+                last: "SURNAME",
+                first: "NAME"
+            },
+            suppliments: {
+                drink: "1 drink",
+                tea: "specialty tea",
+                coffee: "drip-coffee",
+                equipment: "equipment",
+                surplus: "surplus",
+                animal: "animals, birds",
+            },
+            bedding: "Bedding",
+            client: "Passenger {{id}}",
+            fullSeat: "Reserved seat, Carriage 7, seat 44"
+        },
+        clientBlock: {
+            send: "Send a copy of the ticket",
+            email: "BY E-MAIL",
+            emailDesc: "Tickets will be sent to your email automatically",
+            phone: "PHONE",
+            phoneDesc: "You will receive an SMS with the order number on your phone"
+        },
+        orderBlock: {
+            order: "Your order",
+            promocode: "Promo code",
+            pay: "To be paid"
+        }
     }
 }

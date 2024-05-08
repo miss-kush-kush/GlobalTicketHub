@@ -16,12 +16,7 @@ const TicketsList = ({typeText ,type}) =>{
     useEffect(()=>{
             setIsLoad(true)
             getTickets(type).then(res=> {
-                if(res!=false) {
-                    setTickets(res)
-                    
-                } else {
-                    setTickets([])
-                }
+                setTickets(res)
             })
             setIsLoad(false)
     },[])

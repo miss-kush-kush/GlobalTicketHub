@@ -83,14 +83,16 @@
 }
 
 .radio-block {
-  position: relative;
-  display: grid;
-  grid-template-columns: 15% 15% 15% auto;
   width: 98%;
   padding: .8rem;
   background-color:  #F5F5F5;
   border-radius: 11px;
   height: 2.5rem;
+}
+.radio-block form{
+  position: relative;
+  display: grid;
+  grid-template-columns: 15% 15% 15% auto;
 }
 .radio-block>div{
   height: fit-content;
@@ -277,14 +279,17 @@
   position: absolute;
   top: 78%;
   background-color: white;
-  display: grid;
-  grid-template-rows: auto auto auto;
-  gap: 2rem;
+  
   width: 220px;
   height: fit-content;
   padding: 1rem;
   border: 1.5px solid #F07B6A;
   border-radius: 11px;
+}
+.suppliment-block form {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  gap: 2rem;
 }
 
 .simple-ticket-data{

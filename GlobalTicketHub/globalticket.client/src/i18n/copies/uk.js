@@ -101,7 +101,31 @@ export const uk = {
             },
             settings: "Налаштування"
         },
-
+        homePage: {
+            h1: "Замовлення відсутні",
+            p: "Після бронування квитків ваше замовлення буде відображатися тут"
+        },
+        ticketList : {
+            historySelect: {
+                all: "Всі квитки",
+                actual: "Актуальні квитки",
+                history: "Історія замовлень"
+            },
+            statusSelect: {
+                all: "Всі статуси",
+                waitingPay: "Очікує оплати",
+                cancelPay: "Відмінено оплачений",
+                return: "Повернення запит користувача",
+                warite: "Списання підтвердженно"
+            }
+        },
+        ticket: {
+            details: "Детальніше"
+        },
+        filterResult: {
+            p1:"No orders were found using the specified filters",
+            p2:"After booking your tickets, your order will be displayed here"
+        },
         settings: {
             load:"Завантажити фото",
             data:"Персональні дані",
@@ -154,7 +178,8 @@ export const uk = {
         },
         carriage:"Вагон {{number}}",
         seat: "Місце {{number}}",
-        ticket: "{{number}} квитків"
+        ticket: "{{number}} квитків",
+        normal: 'Звичайний'
     },
     toast: {
         success: {
@@ -168,6 +193,57 @@ export const uk = {
     },
     buttons: {
         continue: "Продовжити"
+    },
+
+    searchNavbar :{
+        searchResult: "Результат пошуку",
+        seatPicker: "Вибір місць",
+        clientData: "Дані пасажирів",
+        pay: "Оплата"
+    },
+
+    transportLayout: {
+        selectFreeSeats: "Оберіть місця",
+        freeSeats: "{{count}} вільних місць",
+        clientData: "Дані пасажирів",
+        inputForms: "Заповніть форми нижче"
+    },
+
+    clientData: {
+        ticketData: {
+            types: {
+                full: "Повний",
+                children: "Дитячий",
+                student: "Студентський" 
+            },
+            inputs: {
+                last: "ПРІЗВИЩЕ",
+                first: "ІМ'Я"
+            },
+            suppliments: {
+                drink: "1 напій",
+                tea: "авторський чай",
+                coffee: "дріп-кава",
+                equipment: "апаратура",
+                surplus: "надлишок",
+                animal: "тварини, птахи",
+            },
+            bedding: "Постіль",
+            client: "Пасажир {{id}}",
+            fullSeat: "Плацкарт, Вагон 7, місце 44"
+        },
+        clientBlock: {
+            send: "Відправити копію квитка",
+            email: "НА EMAIL",
+            emailDesc: "Квитки будуть надіслані на Вашу пошту автоматично",
+            phone: "ТЕЛЕФОН",
+            phoneDesc: "Ви отримаєте SMS з номером замовлення на Ваш телефон"
+        },
+        orderBlock: {
+            order: "Ваше замовлення",
+            promocode: "Промкод",
+            pay: "До сплати"
+        }
     }
 
 } 

@@ -9,7 +9,9 @@
 body{
   font-family: Fixel Display
 }
-
+body h2, body p {
+  margin: 0;
+}
 
 
 .App {

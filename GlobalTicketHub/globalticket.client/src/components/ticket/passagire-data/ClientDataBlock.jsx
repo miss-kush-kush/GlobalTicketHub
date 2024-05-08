@@ -1,6 +1,5 @@
 import TicketData from "./ticket-data/TicketData";
-import TicketDataBus from "./ticket-data/TicketDataBus";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext} from "react";
 import './styles/ClientDataBlock.css'
 import InputMask from 'react-input-mask';
 import { useFormik } from "formik";
@@ -11,15 +10,18 @@ import TicketDataSimple from "./ticket-data/TicketDataSimple";
 import { useNavigate} from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from "react-i18next";
 const ClientDataBlock = ()=>{
+    const {t} = useTranslation()
+    const {trainRoute} = useContext(TicketContext);
     const {getSelectTickets, getTicketPrice} = useContext(TicketContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
-    const [transportName, setTransportName] = useState("131П")
-    const [route, setRoute] = useState("Дніпро-Головний - Львів")
-    const [startTime, setStartTime] = useState("20:00");
+    const transportName = "131П"
+    const route=trainRoute.startPoint + ' - ' +trainRoute.endPoint
+    const startTime = "20:00";
     const [startDate, setStartDate] = useState("22.05.2024");
-    const [endTime, setEndTime] = useState("06:00");
+    const endTime = "06:00";
     const [endDate, setEdDate] = useState("23.05.2024");
     const [prices, setPrices] = useState(getSelectTickets().map(t=>getTicketPrice()))
     const setDates = ()=>{
@@ -67,20 +69,20 @@ const ClientDataBlock = ()=>{
                     {tickets}
                 </div> 
                 <div className="ticket-send-data-block">
-                    <h4>Відправити копію квитка</h4>
+                    <h4>{t('clientData.clientBlock.send')}</h4>
                     <div style={{display:"flex", gap:"1.5rem"}}>
                         <div className="ticket-send-data-input-box">
-                            <label htmlFor="">НА EMAIL</label>
+                            <label htmlFor="">{t('clientData.clientBlock.email')}</label>
                             <br />
                             <input type="email" name="email" 
                                                 placeholder="username@gmail.com"
                                                 value={ticketSend.values.email} 
                                                 onChange={ticketSend.handleChange} 
                                                 onBlur={ticketSend.handleBlur} />
-                            <p>Квитки будуть надіслані на Вашу пошту автоматично</p>
+                            <p>{t('clientData.clientBlock.emailDesc')}</p>
                         </div>
                         <div className="ticket-send-data-input-box">
-                            <label htmlFor="">ТЕЛЕФОН</label>
+                            <label htmlFor="">{t('clientData.clientBlock.phone')}</label>
                             <br />
                             
                             <InputMask mask="+38 (999) 999 99 99"  
@@ -89,7 +91,7 @@ const ClientDataBlock = ()=>{
                                         value={ticketSend.values.phone}  
                                         onChange={ticketSend.handleChange} 
                                         placeholder="+38 (000) 000 00 00"/>
-                            <p>Ви отримаєте SMS з номером замовлення на Ваш телефон</p>
+                            <p>{t('clientData.clientBlock.phoneDesc')}</p>
                         </div>
                     </div>
                         
@@ -97,7 +99,7 @@ const ClientDataBlock = ()=>{
             </li>
             <li>
                 <div className="result-tricket-block">
-                    <p>Ваше замовлення</p>
+                    <p>{t('clientData.orderBlock.order')}</p>
                     <div className="div-divider"></div>
                     <p style={{fontWeight:"bolder"}}>{transportName} <span style={{color:"#6F6F6F", fontFamily:"Fixel Display Light"}}>{route}</span></p>
                     <div className="result-ticket-date-box">
@@ -116,9 +118,9 @@ const ClientDataBlock = ()=>{
                             ++priceIndex;
                             return el;})}
                     </div>
-                    <div className="promo-code">Промкод
+                    <div className="promo-code">{t('clientData.orderBlock.promocode')}
                     </div>
-                    <button disabled={ticketSend.values.phone=="" || ticketSend.values.email==""} className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>До сплати </p>  
+                    <button disabled={ticketSend.values.phone=="" || ticketSend.values.email==""} className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>{t('clientData.orderBlock.pay')} </p>  
                         <div className="seat-price" style={{marginRight:"0"}}>
                             <p style={{fontSize:"24px"}}>{parseFloat(totalPrice.toFixed(2))}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>

@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom"
 import './styles/SearchHeader.css'
 import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
+
 const SearchHeader = () =>{
+    const {t} = useTranslation()
     return <div className="search-header">
         <ul>
-            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`search`}>Результат пошуку</NavLink></li>
-            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`seat`}>Вибір місць</NavLink></li>
-            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`client`}>Дані пасажирів</NavLink></li>
-            <li><NavLink onClick={(e)=>{e.preventDefault()}} to='/payment'>Оплата</NavLink></li>
+            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`search`}>{t('searchNavbar.searchResult')}</NavLink></li>
+            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`seat`}>{t('searchNavbar.seatPicker')}</NavLink></li>
+            <li><NavLink onClick={(e)=>{e.preventDefault()}} to={`client`}>{t('searchNavbar.clientData')}</NavLink></li>
+            <li><NavLink onClick={(e)=>{e.preventDefault()}} to='/payment'>{t('searchNavbar.pay')}</NavLink></li>
         </ul>
     </div>
 }

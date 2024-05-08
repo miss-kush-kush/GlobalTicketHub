@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import "./styles/ticket.css";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import HomeProfileBody from '../HomeProfileBody';
+import { useTranslation } from 'react-i18next';
 
 
 const Ticket =  ({ id, route, time, date, passengers, status, price }) => {
+    const {t} = useTranslation()
     return(
         <div className='ticket-box'>
             <div className='id-content'>
@@ -22,7 +25,7 @@ const Ticket =  ({ id, route, time, date, passengers, status, price }) => {
                 <p className='price-content'>{price}</p>
             </div>
             <div>
-                <button className='btn-details'>Детальніше</button>
+                <button className='btn-details'>{t('profile.ticket.details')}</button>
             </div>
         </div>
     );
@@ -30,6 +33,7 @@ const Ticket =  ({ id, route, time, date, passengers, status, price }) => {
 
 
 export default function TicketList(){
+    const {t} = useTranslation()
     const tickets=[];
     const [ticketType, setTicketType] = useState('all');
     const [statusType, setStatusType] = useState('all');
@@ -62,20 +66,20 @@ export default function TicketList(){
         <>
             <div className='custom-select'>
                 <select className='select-all-ticket' value={ticketType} onChange={handleTicketTypeChange}>
-                    <option value="all">Всі квитки</option>
-                    <option value="actual">Актуальні квитки</option>
-                    <option value="history">Історія замовлень</option>
+                    <option value="all">{t('profile.ticketList.historySelect.all')}</option>
+                    <option value="actual">{t('profile.ticketList.historySelect.actual')}</option>
+                    <option value="history">{t('profile.ticketList.historySelect.history')}</option>
                 </select>
                 <KeyboardArrowDownIcon className="select-arrow-icon" />
             </div>
 
             <div className='custom-select'>
                 <select className='select-status' value={statusType} onChange={handleStatusTypeChange}>
-                    <option value="all">Всі статуси</option>
-                    <option value="Очікується оплата">Очікує оплати</option>
-                    <option value="Відмінено оплачений">Відмінено оплачений</option>
-                    <option value="Повернення запит користувача">Повернення запит користувача</option>
-                    <option value="Списання підтвердженно">Списання підтвердженно</option>
+                    <option value="all">{t('profile.ticketList.statusSelect.all')}</option>
+                    <option value="Очікується оплата">{t('profile.ticketList.statusSelect.waitingPay')}</option>
+                    <option value="Відмінено оплачений">{t('profile.ticketList.statusSelect.cancelPay')}</option>
+                    <option value="Повернення запит користувача">{t('profile.ticketList.statusSelect.return')}</option>
+                    <option value="Списання підтвердженно">{t('profile.ticketList.statusSelect.warite')}</option>
                 </select>
                 <KeyboardArrowDownIcon className="select-arrow-icon" />
             </div>
@@ -100,11 +104,7 @@ export default function TicketList(){
                 </div> 
             )
         ) : (
-            <div className='container'>
-                <img className='img-size' src="https://s3-alpha-sig.figma.com/img/ed37/d8c8/a4d1733fd857b9f40d24ba1b88e31dd4?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HCBhY3SFzLwK3bVqLN~zUCCDc2UpmjMnnKfbRlO928SSlLvxfQF3R55L5cSPF9NW7tF5rfa6neWkz~1g1-sjGvo7ZVGhiJHbI7lho0qH7EhOnUWqlakVYJNTLYsMRfUtAhBgDSPOJENm6s~QY3zfty3a~0H6z04T0KpQYk-Lii3AYGmFMxfifrFBlajxxRYGnypKPbTa0fTHjw6WnzsjxA~JZD5TaM~KlWcRjUIwvSOVbIntLXGEcBa1OtKcVQ4eZ3wTZgD5ug~ivpPSGdNHehFwdTm2hGMT6vhWj663iAIqxGOM1pBVhsdV1OO~YtuTPzbMaCnqWcLEY6wFbktvrw__"/>
-                <p className='order-text'>Замовлення відсутні</p>
-                <p className='order-text2'>Після бронування квитків ваше замовлення буде відображатися тут</p>
-            </div> 
+            <HomeProfileBody/>
         )}
         </>
         

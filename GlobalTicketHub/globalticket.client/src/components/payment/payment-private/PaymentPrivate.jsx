@@ -1,6 +1,7 @@
 import './styles/PaymentPrivate.css'
 import Logo from '../../../image/p24logo.png'
 import Logo2 from '../../../image/Privat24_Logo 1.png'
+import { NavLink } from 'react-router-dom'
 const PaymentPrivate = () => {
     return <div className="pay-private-block">
         <div className='payment-data-block'>
@@ -25,7 +26,7 @@ const PaymentPrivate = () => {
             <p>Натискаючи на кнопку “Сплатити”, ви підтверджуєте, що ознайомлені з переліком інформації про послугу та приймаєте умови <a>публічного договору</a></p>
             <button className='pay-private-button'>Сплатити</button>
         </div>
-        <p style={{marginLeft:"18rem", color:"#7AB72B", cursor:"pointer"}}>Скасувати оплату</p>
+        <NavLink to="/" style={{marginLeft:"18rem", color:"#7AB72B", cursor:"pointer"}}>Скасувати оплату</NavLink>
     </div>
 }
 export default PaymentPrivate

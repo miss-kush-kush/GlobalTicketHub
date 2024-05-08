@@ -1,10 +1,10 @@
 export const initialState = {routes:[]}
-export const routeReducer = (state,{type,point, index}) =>{
+export const routeReducer = (state,{type,point, index, arrivalTime,departureTime,duration,routes}) =>{
     switch(type) {
         case 'ADD':
             return {
                 ...state,
-                routes: state.routes.concat(point)
+                routes: state.routes.concat({point,arrivalTime,departureTime,duration})
             }
         case 'DELETE':
             return {
@@ -14,7 +14,12 @@ export const routeReducer = (state,{type,point, index}) =>{
         case 'CHANGE': 
             return {
                 ...state,
-                routes: state.routes.map((route, i) => i === index ? point : route)
+                routes: state.routes.map((route, i) => i === index ? {point,arrivalTime,departureTime,duration} : route)
+            }
+        case 'INIT': 
+            return {
+                ...state,
+                routes
             }
         default:
             return state

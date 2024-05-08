@@ -7,7 +7,7 @@ import { seats } from "./Seat";
 import { useNavigate } from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
 const SeatPicker = () =>{
-    const {getTrainRoute, setSelectTickets} = useContext(TicketContext)
+    const {trainRoute, setSelectTickets} = useContext(TicketContext)
     const navigate = useNavigate();
     const [price, setPrice] = useState(199.56);
     const [seat, setSeat] = useState(0)
@@ -26,11 +26,11 @@ const SeatPicker = () =>{
                 <div className="route-seat-block">
                     <div className="carriage-text">
                         <h2>{t('seat.carriage',{number:activeCarriage})}</h2>
-                        <p>Звичайний</p>
+                        <p>{t('seat.normal')}</p>
                     </div>
                     <div className="route-text">
-                        <p>{getTrainRoute().startTime} <span>{getTrainRoute().startPoint}</span></p>
-                        <p>{getTrainRoute().endTime} <span>{getTrainRoute().endPoint}</span></p>
+                        <p>{trainRoute.startTime} <span>{trainRoute.startPoint}</span></p>
+                        <p>{trainRoute.endTime} <span>{trainRoute.endPoint}</span></p>
                     </div>
                     <div className="carriage-field">
                         <Carriage number={2} freePlaces={3} active={activeCarriage} setActive={setActiveCarriage} even={true}/>

@@ -1,29 +1,28 @@
 import './styles/PlaceBlock.css'
 import { useTranslation } from 'react-i18next'
-import { Navigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import TicketContext from '../../../contexts/TicketContext'
 import { useContext, useState } from 'react'
 const PlaceBlock = ({placeName, price,count,clickData}) => {
     const location = useLocation()
-    const {setTrainRoute} = useContext(TicketContext)
-    const [toSeat, setToSeat] = useState(false)
+    const navigate = useNavigate()
+    const {setTrainRoute, setFreePlaces} = useContext(TicketContext)
     const {t} = useTranslation()
     const handle = () => {
         setTrainRoute(clickData.startTime,clickData.startPoint,clickData.endTime,clickData.endPoint)
-        setToSeat(true)
+        setFreePlaces(count)
+        navigate(nextUrl)
     }
-    const changeUrl = (адреса) =>{
-        const останнійСлеш = адреса.lastIndexOf('/');
-        if (останнійСлеш !== -1) {
-            const чистаАдреса = адреса.substring(0, останнійСлеш);
-            return чистаАдреса;
+    const changeUrl = (url) =>{
+        const lastSlesh = url.lastIndexOf('/');
+        if (lastSlesh !== -1) {
+            const clearUrl = url.substring(0, lastSlesh);
+            return clearUrl;
         } else {
-            return адреса;
+            return url;
         }
     }
-    if(toSeat === true) {
-        return <Navigate to={changeUrl(location.pathname)+"/seat"}/>;
-    }
+    let nextUrl = changeUrl(location.pathname)+"/seat"
     return <div className='place-block'>
         <ul>
             <li style={{margin:".7rem"}}> <p className='place-name'>{placeName!=''?placeName+',':placeName} <span className='place-count'>{count} місць</span></p></li>

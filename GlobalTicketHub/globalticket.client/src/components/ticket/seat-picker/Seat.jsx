@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './styles/Seat.css'
-const Seat = ({even=false,value,id, status, selectSeats, setSelectSeats, setSeat}) => {
+const Seat = ({even=true,value,id, status, selectSeats, setSelectSeats, setSeat}) => {
     const STANDART_STYLE_CLASS = even?'seat seat-even ':'seat seat-noteven '
     const [styleClass, setStyleClass] = useState(STANDART_STYLE_CLASS);
     const [state, setState] = useState(status)
@@ -18,7 +18,11 @@ const Seat = ({even=false,value,id, status, selectSeats, setSelectSeats, setSeat
     }
     const handle = ()=>{
         if(state!=0){
-            state==1?setState(2):setState(1)
+            if(state == 1){
+                setState(2)
+            } else {
+                setState(1)
+            }
             let pos = selectSeats.indexOf(id)
             if(pos == -1){
                 setSelectSeats(addElement())
