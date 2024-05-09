@@ -18,7 +18,7 @@ const initialState ={
     selectWagon: null
 
 }
-const TRAIN_TICKETS = 'http://localhost:5007/api/Home/find-apopriate-lines';
+const TRAIN_TICKETS = 'http://localhost:5007/api/Home/find-appropriate-lines';
 const TRAIN_DETAILS = 'http://localhost:5007/api/Home/train-details';
 const BUS_TICKETS = 'http://localhost:5007/api/home/bus'
 export const TicketProvider = ({children}) =>{
