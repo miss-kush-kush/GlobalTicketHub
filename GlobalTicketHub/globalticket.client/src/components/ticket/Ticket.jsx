@@ -6,6 +6,7 @@ import i18next from 'i18next'
 import 'moment/locale/uk'
 import PlaceBlock from './place-block/PlaceBlock'
 import { v4 as uuidv4 } from 'uuid';
+import { TrainType } from '../../enums/train/trainTypeEnum'
 const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName, route, type='', places}) =>{
     const[firstDate, setFirstDate] = useState('')
     const[lastDate, setLastDate] = useState('')
@@ -28,7 +29,6 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
         moment.locale(i18next.language)
         setDates()
     },[i18next.language])
-  
     return <div className='ticket'>
         <div>
             <div className='date-time-box'>
@@ -58,7 +58,7 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
             <div className='transport-box'>
                 <div className='transport-details'>
                     <p>{transportName}</p>
-                    <p className='transport-type'>{type}</p>
+                    <p className='transport-type'>{TrainType()[type]!=null?TrainType()[type]:type}</p>
                 </div>
                 <p className='transport-route'>{route}</p>
             </div>
@@ -67,8 +67,8 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
             {places.map((p,index)=> <PlaceBlock key={index} placeName={p.placeName} price={p.price} count={p.numberOfPlaces} clickData={{
                 startTime: startTime,
                 endTime: endTime,
-                startPoint: route.split(' - ' )[0],
-                endPoint: route.split(' - ')[1],
+                startPoint: route!==undefined?route.split(' - ')[0]:route,
+                endPoint: route!==undefined?route.split(' - ')[1]:route,
             }}/>)}
         </div>
     </div>

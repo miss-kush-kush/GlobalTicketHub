@@ -44,7 +44,7 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route path='/' element={<Home startPoint={startPoint} endPoint={endPoint}/>}>
                 <Route path='/' element={<HomeMain setPoints={setPoints}/>}/>
-                <Route path='/train' element={<RouteGuard><TransportLayout type={'train'}/></RouteGuard>}>
+                <Route path='/train' element={<RouteGuard endpoint={'/'}><TransportLayout type={'train'}/></RouteGuard>}>
                   <Route path='search' element={<TicketsBlock type={"TRAIN"}/>}/>
                   <Route path='seat' element={<SeatPicker/>}/>
                   <Route path='client' element={<ClientDataBlock/>}/>
@@ -59,7 +59,7 @@ function App() {
               </Route>
               <Route path='/home-bus' element={<HomeBus startPoint={startPoint} endPoint={endPoint}/>}>
                 <Route path='' element={<HomeBusMain setPoints={setPoints}/>}/>
-                <Route path='bus' element={<TransportLayout type="bus"/>}>
+                <Route path='bus' element={<RouteGuard endpoint={'/home-bus'}><TransportLayout type="bus"/></RouteGuard>}>
                   <Route path='search' element={<TicketsBlock type={"BUS"}/>}/>
                   <Route path='seat' element={<BusSeatPicker/>}/>
                   <Route path='client' element={<ClientDataBlockBus/>}/>

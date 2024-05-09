@@ -179,7 +179,14 @@ export const uk = {
         carriage:"Вагон {{number}}",
         seat: "Місце {{number}}",
         ticket: "{{number}} квитків",
-        normal: 'Звичайний'
+        normal: 'Звичайний',
+        busPicker: {
+            cond : "Без кондиціонера",
+            select: "Оберіть кількість місць",
+            placeHolder: "Кількість місць",
+            freeSeat: "Місця на цьому рейсі реалізовуються з вільною розсадкою.",
+            seating: "Місце можна буде обрати по факту посадки в автобус."
+        }
     },
     toast: {
         success: {
@@ -218,7 +225,8 @@ export const uk = {
             },
             inputs: {
                 last: "ПРІЗВИЩЕ",
-                first: "ІМ'Я"
+                first: "ІМ'Я",
+                birth: "ДАТА НАРОДЖЕННЯ"
             },
             suppliments: {
                 drink: "1 напій",
@@ -230,7 +238,8 @@ export const uk = {
             },
             bedding: "Постіль",
             client: "Пасажир {{id}}",
-            fullSeat: "Плацкарт, Вагон 7, місце 44"
+            fullSeat: "Плацкарт, Вагон 7, місце 44",
+            fullSeatBus:"Сидячий, Вільна розсадка"
         },
         clientBlock: {
             send: "Відправити копію квитка",
@@ -244,6 +253,15 @@ export const uk = {
             promocode: "Промкод",
             pay: "До сплати"
         }
+    },
+    places: {
+        seat: "{{count}} місць"
+    },
+    trainType: {
+        night: "Нічний",
+        nightExpress: "Нічний експресс",
+        express: "Експресс",
+        intercity: "Інтерсіті"
     }
 
 } 

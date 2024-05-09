@@ -25,7 +25,7 @@ const PlaceBlock = ({placeName, price,count,clickData}) => {
     let nextUrl = changeUrl(location.pathname)+"/seat"
     return <div className='place-block'>
         <ul>
-            <li style={{margin:".7rem"}}> <p className='place-name'>{placeName!=''?placeName+',':placeName} <span className='place-count'>{count} місць</span></p></li>
+            <li style={{margin:".7rem"}}> <p className='place-name'>{placeName!=''?placeName+',':placeName} <span className='place-count'>{t('places.seat',{count})}</span></p></li>
             <li className='price-box'><p >{price}<span className='price-block'>грн</span></p></li>
             <li><button onClick={handle}>{t('buttons.continue')}</button></li>
         </ul>

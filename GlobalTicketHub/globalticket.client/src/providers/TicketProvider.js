@@ -32,7 +32,7 @@ export const TicketProvider = ({children}) =>{
                 params:getParams
             })
             if(res.status==200){
-                return ticketMapper(res.data)
+                return type=='TRAIN'?ticketMapper(res.data):res.data
             } else {
                 return []
             }

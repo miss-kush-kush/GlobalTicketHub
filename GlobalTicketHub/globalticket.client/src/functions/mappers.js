@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export const ticketMapper = (data) =>{
     return data.map(d=>{
         let sDate = moment(d.departureDate)
@@ -19,7 +21,7 @@ export const ticketMapper = (data) =>{
         endDate: fEDATE,
         duration: formatDuration,
         transportName: d.trainLineName,
-        type: TrainType[d.trainType],
+        type: d.trainType,
         places:[
             {
                 placeName: '',

@@ -174,6 +174,13 @@ export const en = {
             up:"Upper seats",
             down:"Bottom seats"
         },
+        busPicker: {
+            cond : "No air conditioning",
+            select: "Select the number of seats",
+            placeHolder: "Number of seats",
+            freeSeat: "Seats on this flight are sold with free seating.",
+            seating: "You will be able to choose a seat upon boarding the bus."
+        },
         carriage:"Carriage {{number}}",
         seat: "Seat {{number}}",
         ticket: "{{number}} tickets",
@@ -216,7 +223,8 @@ export const en = {
             },
             inputs: {
                 last: "SURNAME",
-                first: "NAME"
+                first: "NAME",
+                birth: "BIRTH DATE"
             },
             suppliments: {
                 drink: "1 drink",
@@ -228,7 +236,8 @@ export const en = {
             },
             bedding: "Bedding",
             client: "Passenger {{id}}",
-            fullSeat: "Reserved seat, Carriage 7, seat 44"
+            fullSeat: "Reserved seat, Carriage 7, seat 44",
+            fullSeatBus:"Sitting, Free seating"
         },
         clientBlock: {
             send: "Send a copy of the ticket",
@@ -242,5 +251,14 @@ export const en = {
             promocode: "Promo code",
             pay: "To be paid"
         }
+    },
+    places: {
+        seat: "{{count}} seats"
+    },
+    trainType: {
+        night: "Night",
+        nightExpress: "Night express",
+        express: "Express",
+        intercity: "Intercity"
     }
 }
