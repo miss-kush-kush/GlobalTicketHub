@@ -10,11 +10,13 @@ const SeatPicker = () =>{
     const [wagons, setWagons] = useState([]);
     const [activeCarriage, setActiveCarriage] = useState(-1)
     const [carriageSeats,setCarriageSeats]=useState([])
+    const [wagonNumber, setWagonNumber] = useState(0);
     useEffect(()=>{
         getTrainDetails().then(res=>{
             setWagons(res.trains[0].wagons)
             setActiveCarriage(res.trains[0].wagons[0].wagonId)
             setCarriageSeats(res.trains[0].wagons[0].seats)
+            setWagonNumber(res.trains[0].wagons[0].number)
         })
     },[])
     const navigate = useNavigate();
@@ -35,7 +37,7 @@ const SeatPicker = () =>{
             <li className="seat-li">
                 <div className="route-seat-block">
                     <div className="carriage-text">
-                        <h2>{t('seat.carriage',{number:wagons[activeCarriage].number})}</h2>
+                        <h2>{t('seat.carriage',{number:wagonNumber})}</h2>
                         <p>{t('seat.normal')}</p>
                     </div>
                     <div className="route-text">
@@ -51,6 +53,7 @@ const SeatPicker = () =>{
                                                     active={activeCarriage} 
                                                     setCarriageSeats={setCarriageSeats} 
                                                     setActive={setActiveCarriage}
+                                                    setWagonNumber={setWagonNumber}
                                                     seats={w.seats}/>)}
                     </div>
                 </div>
@@ -94,7 +97,7 @@ const SeatPicker = () =>{
             <li className="seat-li">
                 <div className="seat-price-block">
                     <div className="seat-block">
-                        <p>{t('seat.carriage',{number:wagons[activeCarriage].number})}</p>
+                        <p>{t('seat.carriage',{number:wagonNumber})}</p>
                         <p>{t('seat.seat', {number:seat})}</p>
                     </div>
                     <div className="seat-price-box">
