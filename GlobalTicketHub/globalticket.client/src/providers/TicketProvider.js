@@ -11,9 +11,15 @@ const initialState ={
     trainRoute: null,
     ticketPrice: null,
     tickets: null,
-    freePlaces: null
+    freePlaces: null,
+    wagonType: null,
+    trainLineName: null,
+    transportId: null,
+    selectWagon: null
+
 }
-const TRAIN_TICKETS = 'http://localhost:5007/api/home/find-approiate-lines';
+const TRAIN_TICKETS = 'http://localhost:5007/api/Home/find-apopriate-lines';
+const TRAIN_DETAILS = 'http://localhost:5007/api/Home/train-details';
 const BUS_TICKETS = 'http://localhost:5007/api/home/bus'
 export const TicketProvider = ({children}) =>{
     const[state,dispatch] = useReducer(ticketReducer, initialState)
@@ -40,7 +46,21 @@ export const TicketProvider = ({children}) =>{
             return []
         }
     }
-
+    const getTrainDetails = async() =>{
+        try {
+            let requestParams = {
+                trainLineName: state.trainLineName,
+                trainId: state.transportId,
+                wagonType: state.wagonType
+            }
+            let res = await axios(TRAIN_DETAILS,{params: requestParams})
+            if(res.status==200){
+                return res.data
+            }
+        } catch(e) {
+            return {}
+        }
+    }
 
     const setRoute = (startPoint, endPoint, date) =>{
         localStorage.setItem('start',startPoint)
@@ -62,11 +82,12 @@ export const TicketProvider = ({children}) =>{
             date: state.date
         }
     }
-    const setSelectTickets = (tickets, price)=> {
+    const setSelectTickets = (tickets, price, selectWagon)=> {
         dispatch({
             type: TYPES.setTickets,
             tickets,
-            ticketPrice: price
+            ticketPrice: price,
+            selectWagon: selectWagon
         })
     }
     const getSelectTickets = ()=> {
@@ -75,7 +96,7 @@ export const TicketProvider = ({children}) =>{
     const getTicketPrice = () => {
         return state.ticketPrice
     }
-    const setTrainRoute = (startTime, startPoint, endTime, endPoint) =>{
+    const setTrainRoute = (startTime, startPoint, endTime, endPoint, wagonType, ) =>{
         dispatch({
             type: TYPES.setTrain,
             trainRoute: {
@@ -83,7 +104,8 @@ export const TicketProvider = ({children}) =>{
                 startPoint,
                 endPoint,
                 endTime
-            }
+            },
+            wagonType: wagonType
         })
     }
     const setFreePlaces = (places) =>{
@@ -92,7 +114,9 @@ export const TicketProvider = ({children}) =>{
             freePlaces: places
         })
     }
-
+    const bookedSeats = () =>{
+        
+    }
     useEffect(()=>{
         const startPoint = localStorage.getItem('start')
         if(startPoint!=null){
@@ -108,7 +132,8 @@ export const TicketProvider = ({children}) =>{
                                                      setSelectTickets, 
                                                      getSelectTickets, 
                                                      getTicketPrice,
-                                                     setFreePlaces}}>
+                                                     setFreePlaces,
+                                                     getTrainDetails}}>
         {children}
     </TicketContext.Provider>
 }

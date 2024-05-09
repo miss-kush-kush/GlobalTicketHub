@@ -260,5 +260,10 @@ export const en = {
         nightExpress: "Night express",
         express: "Express",
         intercity: "Intercity"
+    },
+    wagonType: {
+        seatFirst: "Sitting 1st class",
+        seatSecond: "Sitting 2nd class",
+        plac: "Economy Plackart"
     }
 }

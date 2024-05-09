@@ -7,7 +7,7 @@ import 'moment/locale/uk'
 import PlaceBlock from './place-block/PlaceBlock'
 import { v4 as uuidv4 } from 'uuid';
 import { TrainType } from '../../enums/train/trainTypeEnum'
-const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName, route, type='', places}) =>{
+const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName, route, type='', places, trainId}) =>{
     const[firstDate, setFirstDate] = useState('')
     const[lastDate, setLastDate] = useState('')
     const {t} = useTranslation()
@@ -64,12 +64,18 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
             </div>
         </div>
         <div>
-            {places.map((p,index)=> <PlaceBlock key={index} placeName={p.placeName} price={p.price} count={p.numberOfPlaces} clickData={{
-                startTime: startTime,
-                endTime: endTime,
-                startPoint: route!==undefined?route.split(' - ')[0]:route,
-                endPoint: route!==undefined?route.split(' - ')[1]:route,
-            }}/>)}
+            {places.map((p,index)=> <PlaceBlock key={index} 
+                                                placeName={p.placeName} 
+                                                price={p.price} 
+                                                count={p.numberOfPlaces} 
+                                                trainLineName={transportName}
+                                                trainId={trainId}
+                                                clickData={{
+                                                    startTime: startTime,
+                                                    endTime: endTime,
+                                                    startPoint: route!==undefined?route.split(' - ')[0]:route,
+                                                    endPoint: route!==undefined?route.split(' - ')[1]:route,
+                                                }}/>)}
         </div>
     </div>
 }

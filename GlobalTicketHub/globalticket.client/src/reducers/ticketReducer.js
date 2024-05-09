@@ -5,7 +5,7 @@ export const TYPES = {
     setTickets: "SET_TICKETS",
     setFreePlaces: "SET_FREE"
 }
-export const ticketReducer = (state,{type,route, date, trainRoute,tickets,ticketPrice, freePlaces}) =>{
+export const ticketReducer = (state,{type,route, date, trainRoute,tickets,ticketPrice, freePlaces,wagonType,trainLineName,transportId,selectWagon}) =>{
     switch(type) {
         case TYPES.search:  
             return {
@@ -16,13 +16,17 @@ export const ticketReducer = (state,{type,route, date, trainRoute,tickets,ticket
         case TYPES.setTrain: 
             return {
                 ...state,
-                trainRoute: trainRoute
+                trainRoute: trainRoute,
+                wagonType: wagonType,
+                trainLineName: trainLineName,
+                transportId: transportId
             }
         case TYPES.setTickets:
             return {
                 ...state,
                 ticketPrice: ticketPrice,
-                tickets: tickets
+                tickets: tickets,
+                selectWagon: selectWagon
             }
         case TYPES.clear:
             return {
@@ -30,7 +34,10 @@ export const ticketReducer = (state,{type,route, date, trainRoute,tickets,ticket
                 route: null,
                 date: null,
                 trainRoute: null,
-                freePlaces: null
+                freePlaces: null,
+                wagonType: null,
+                trainLineName: null,
+                transportId: null
             }
         case TYPES.setFreePlaces: 
             return {

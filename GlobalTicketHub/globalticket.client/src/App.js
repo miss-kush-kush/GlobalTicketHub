@@ -71,6 +71,7 @@ function App() {
               <Route path='/schedule' element={<><h1>SCHEDULE!</h1></>}/>
               <Route path='/payment' element={<PaymentBlock/>}/>
             </Route>
+            <Route path='*' elemnt={<h1>Not found</h1>}/>
           </Routes>
           <ToastContainer/>
         </TicketProvider>

@@ -10,7 +10,7 @@ export const ticketMapper = (data) =>{
         let fSTIME = sTime.format("HH:mm")
         let eTime = moment(d.arrivalTime, "HH:mm:ss")
         let fETIME = eTime.format("HH:mm")
-        let duration = moment(d.duration, "H.m")
+        let duration = moment(d.duration, "HH:mm:ss")
         let formatDuration = duration.format("HH:mm")
         return{
         id:d.id,
@@ -21,13 +21,19 @@ export const ticketMapper = (data) =>{
         endDate: fEDATE,
         duration: formatDuration,
         transportName: d.trainLineName,
+        transportId: d.trainId,
         type: d.trainType,
-        places:[
-            {
+        places:d.wagons.map((w,i)=>{return {
+            numberOfPlaces:w.availableSeats, 
+            placeName: w.wagonType,
+            price: d.firstPrices[i]
+        }
+        
+        })}
+    })
+}
+/**{
                 placeName: '',
                 price: 326,
                 numberOfPlaces:238
-            }
-        ]}
-    })
-}
+            } */

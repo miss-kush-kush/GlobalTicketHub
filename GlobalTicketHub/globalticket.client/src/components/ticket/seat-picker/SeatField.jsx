@@ -5,9 +5,9 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
     const evenStuff = (<>
         <Row>
             {seats.map((s,index)=>{
-                if(s.value%2==0){
-                    return <Seat value={s.value} id={s.seatId} even={even} 
-                                                                status={s.status} 
+                if(s.number%2==0){
+                    return <Seat value={s.number} id={s.seatId} even={even} 
+                                                                status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
                                                                 setSeat={setSeat}
@@ -20,9 +20,9 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
         </Row>
         <Row>
             {seats.map((s,index)=>{
-                if(s.value%2!=0){
-                    return <Seat value={s.value} id={s.seatId} even={even} 
-                                                                status={s.status} 
+                if(s.number%2!=0){
+                    return <Seat value={s.number} id={s.seatId} even={even} 
+                                                                status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
                                                                 setSeat={setSeat}
@@ -32,13 +32,13 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                 }
             })}
         </Row>
-        {seats.length>35?<>
+        {seats.number>35?<>
                             <Row></Row>
                             <Row>
                                 {seats.map((s,index)=>{
                                     if(s.id > 35){
-                                        return <Seat value={s.value} id={s.seatId} even={even} 
-                                                                                    status={s.status} 
+                                        return <Seat value={s.number} id={s.seatId} even={even} 
+                                                                                    status={s.stateType} 
                                                                                     selectSeats={selectSeats} 
                                                                                     setSelectSeats={setSelectSeats}
                                                                                     setSeat={setSeat}
@@ -54,8 +54,8 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
     </>);
     const notEvenStuff = (<>
         <Row>
-            {seats.map((s,index)=><Seat value={s.value} id={s.seatId} even={even} 
-                                                                status={s.status} 
+            {seats.map((s,index)=><Seat value={s.number} id={s.seatId} even={even} 
+                                                                status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
                                                                 setSeat={setSeat}

@@ -3,7 +3,7 @@ import './styles/TicketData.css'
 import { useEffect, useState } from "react";
 import SupplimentBlocks from "./SupplimentBlocks";
 import { useTranslation } from "react-i18next";
-
+import { WagonType } from "../../../../enums/wagon/wagonTypeEnum";
 const TicketData = ({id,price,setPrices,prices}) =>{
     const{t} = useTranslation()
     const [selectedOption, setSelectedOption] = useState("1"); 

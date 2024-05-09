@@ -262,6 +262,11 @@ export const uk = {
         nightExpress: "Нічний експресс",
         express: "Експресс",
         intercity: "Інтерсіті"
+    },
+    wagonType: {
+        seatFirst: "Сидячий 1-й клас",
+        seatSecond: "Сидячий 2-й клас",
+        plac: "Плацкарт економ"
     }
 
 } 

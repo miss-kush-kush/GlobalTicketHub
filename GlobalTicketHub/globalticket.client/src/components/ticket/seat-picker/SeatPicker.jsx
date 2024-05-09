@@ -1,22 +1,32 @@
 import { useTranslation } from "react-i18next"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SeatField from "./SeatField";
 import './styles/SeatPicker.css'
 import Carriage from "./Carriage";
-import { seats } from "./Seat";
 import { useNavigate } from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
 const SeatPicker = () =>{
-    const {trainRoute, setSelectTickets} = useContext(TicketContext)
+    const {trainRoute, setSelectTickets, wagonType, getTrainDetails} = useContext(TicketContext)
+    const [wagons, setWagons] = useState([]);
+    const [activeCarriage, setActiveCarriage] = useState(-1)
+    const [carriageSeats,setCarriageSeats]=useState([])
+    useEffect(()=>{
+        getTrainDetails().then(res=>{
+            setWagons(res.trains[0].wagons)
+            setActiveCarriage(res.trains[0].wagons[0].wagonId)
+            setCarriageSeats(res.trains[0].wagons[0].seats)
+        })
+    },[])
     const navigate = useNavigate();
+    
+    
     const [price, setPrice] = useState(199.56);
     const [seat, setSeat] = useState(0)
-    const [carriageSeats,setCarriageSeats]=useState(seats)
+    
     const [bookedSeats,setBookedSeats] = useState([])
-    const [activeCarriage, setActiveCarriage] = useState(2)
     const {t} =  useTranslation();
     const handle = ()=>{
-        setSelectTickets(bookedSeats,price)
+        setSelectTickets(bookedSeats,price, activeCarriage)
         navigate("/train/client")
     }
     /*{t('seat.carriage',{number:activeCarriage})} */
@@ -25,7 +35,7 @@ const SeatPicker = () =>{
             <li className="seat-li">
                 <div className="route-seat-block">
                     <div className="carriage-text">
-                        <h2>{t('seat.carriage',{number:activeCarriage})}</h2>
+                        <h2>{t('seat.carriage',{number:wagons[activeCarriage].number})}</h2>
                         <p>{t('seat.normal')}</p>
                     </div>
                     <div className="route-text">
@@ -33,12 +43,20 @@ const SeatPicker = () =>{
                         <p>{trainRoute.endTime} <span>{trainRoute.endPoint}</span></p>
                     </div>
                     <div className="carriage-field">
-                        <Carriage number={2} freePlaces={3} active={activeCarriage} setActive={setActiveCarriage} even={true}/>
-                        <Carriage number={3} freePlaces={5} active={activeCarriage} setActive={setActiveCarriage} even={false}/>
+                        {wagons.map((w,i)=><Carriage key={i}
+                                                    id={w.wagonId}
+                                                    
+                                                    number={w.number}
+                                                    freePlaces={w.availableSeats}
+                                                    active={activeCarriage} 
+                                                    setCarriageSeats={setCarriageSeats} 
+                                                    setActive={setActiveCarriage}
+                                                    seats={w.seats}/>)}
                     </div>
                 </div>
             </li>
             <li className="state-tips seat-li">
+            {wagonType==1 ? <div></div>:
                 <div className="state-block">
                     <div className="even-box">
                         <div className="seat-circle select-circle"><p>1</p></div>
@@ -54,7 +72,7 @@ const SeatPicker = () =>{
                             <p>{t('seat.even.even')}</p>
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div className="state-block" style={{marginTop:"1rem"}}>
                     <div className="state-box">
                         <div className="state-circle select-circle"></div>
@@ -71,12 +89,12 @@ const SeatPicker = () =>{
                 </div>
             </li>
             <li>
-                <SeatField seats={carriageSeats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats} setSeat={setSeat}/>
+                <SeatField even={wagonType==0 || wagonType==2 ? true:false} seats={carriageSeats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats} setSeat={setSeat}/>
             </li>
             <li className="seat-li">
                 <div className="seat-price-block">
                     <div className="seat-block">
-                        <p>{t('seat.carriage',{number:activeCarriage})}</p>
+                        <p>{t('seat.carriage',{number:wagons[activeCarriage].number})}</p>
                         <p>{t('seat.seat', {number:seat})}</p>
                     </div>
                     <div className="seat-price-box">
