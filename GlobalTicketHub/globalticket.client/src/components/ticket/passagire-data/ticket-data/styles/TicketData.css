@@ -35,6 +35,8 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    width: 50px;
+    padding-left: 0;
 }
   
   /* Create a custom radio button */
@@ -279,7 +281,6 @@
   position: absolute;
   top: 78%;
   background-color: white;
-  
   width: 220px;
   height: fit-content;
   padding: 1rem;

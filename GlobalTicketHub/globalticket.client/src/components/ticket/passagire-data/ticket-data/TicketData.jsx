@@ -69,20 +69,22 @@ const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon}) =>{
             </form>
         </div>
         <div className="client-name-block client-name-block-train">
-            <ul>
-                <li>
-                    <label> {t('clientData.ticketData.inputs.last')}
-                        
-                    </label>
-                    <input type="text" name="name" value={values.name} onChange={handleChange} onBlur={handleBlur} placeholder="" />
-                </li>
-                <li>
-                    <label> {t('clientData.ticketData.inputs.first')}
-                        
-                    </label>
-                    <input type="text" name="surname" value={values.surname} onChange={handleChange} onBlur={handleBlur} placeholder="" />
-                </li>
-            </ul>
+            <form action="">
+                <ul>
+                    <li>
+                        <label> {t('clientData.ticketData.inputs.last')}
+                            
+                        </label>
+                        <input type="text" name="name" value={values.name} onChange={handleChange} onBlur={handleBlur} placeholder="" />
+                    </li>
+                    <li>
+                        <label> {t('clientData.ticketData.inputs.first')}
+                            
+                        </label>
+                        <input type="text" name="surname" value={values.surname} onChange={handleChange} onBlur={handleBlur} placeholder="" />
+                    </li>
+                </ul>
+            </form>
         </div>
         <div>
             <div className="supplement-box">
