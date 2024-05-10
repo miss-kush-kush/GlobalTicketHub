@@ -10,15 +10,15 @@ import { useNavigate} from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
 import { useTranslation } from "react-i18next";
 import i18next from 'i18next'
+import PayContext  from '../../../contexts/PayContext' 
 const ClientDataBlockBus = () =>{
     const {t} = useTranslation()
-    const {getSelectTickets, getTicketPrice, trainRoute} = useContext(TicketContext)
-    const transportName= trainRoute.startPoint + ' - ' + trainRoute.endPoint
-    const [route, setRoute] = useState("Дніпро-Головний - Львів")
-    const [startTime, setStartTime] = useState("20:00");
-    const [startDate, setStartDate] = useState("22.05.2024");
-    const [endTime, setEndTime] = useState("06:00");
-    const [endDate, setEdDate] = useState("23.05.2024");
+    const {getSelectTickets, trainRoute, trainLineName} = useContext(TicketContext)
+    const {price} = useContext(PayContext)
+    const transportName= trainLineName;
+    const route = trainRoute.startPoint + ' - ' + trainRoute.endPoint;
+    const [startDate, setStartDate] = useState(trainRoute.startDate);
+    const [endDate, setEdDate] = useState(trainRoute.endDate);
     const n = useNavigate()
     const ticketSend = useFormik({
         initialValues: {
@@ -51,8 +51,8 @@ const ClientDataBlockBus = () =>{
     }
     const size = getSelectTickets();
         for(index; index<size; index++){
-            tickets.push(<TicketDataBus id={index} price={getTicketPrice()}/>)
-            simpleTickets.push(<TicketDataSimple client={index+1} price={getTicketPrice()}/>)
+            tickets.push(<TicketDataBus id={index} price={price}/>)
+            simpleTickets.push(<TicketDataSimple client={index+1} price={price}/>)
         }
     return <div className="client-data-block">
         <ul>
@@ -96,11 +96,11 @@ const ClientDataBlockBus = () =>{
                     <p style={{fontWeight:"bolder"}}>{transportName} <span style={{color:"#6F6F6F", fontFamily:"Fixel Display Light"}}>{route}</span></p>
                     <div className="result-ticket-date-box">
                         <div>
-                            <p>{startTime}</p>
+                            <p>{trainRoute.startTime}</p>
                             <p style={{color:"#6F6F6F"}}>{startDate}</p>
                         </div>
                         <div style={{textAlign:"end"}}>
-                            <p>{endTime}</p>
+                            <p>{trainRoute.endTime}</p>
                             <p style={{color:"#6F6F6F"}}>{endDate}</p>
                         </div>
                     </div>
@@ -111,7 +111,7 @@ const ClientDataBlockBus = () =>{
                     </div>
                     <button disabled={ticketSend.values.phone=="" || ticketSend.values.email==""} className="data-button" onClick={handle}><p style={{fontFamily:"Fixel Display Light", marginTop:".3rem"}}>{t('clientData.orderBlock.pay')} </p>  
                         <div className="seat-price" style={{marginRight:"0"}}>
-                            <p style={{fontSize:"24px"}}>{parseFloat((getSelectTickets()*getTicketPrice()).toFixed(2))}<span style={{marginLeft:".2rem"}}>грн</span></p>
+                            <p style={{fontSize:"24px"}}>{parseFloat((getSelectTickets()*price).toFixed(2))}<span style={{marginLeft:".2rem"}}>грн</span></p>
                         </div>
                     </button>
                 </div>

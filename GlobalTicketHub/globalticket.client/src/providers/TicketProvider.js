@@ -18,6 +18,7 @@ const initialState ={
 }
 const TRAIN_TICKETS = 'http://localhost:5007/api/Home/find-appropriate-lines';
 const TRAIN_DETAILS = 'http://localhost:5007/api/Home/train-details';
+const RESERVE_TICKET = 'http://localhost:5007/api/Home/reserve-seats';
 const BUS_TICKETS = 'http://localhost:5007/api/home/bus'
 export const TicketProvider = ({children}) =>{
     const[state,dispatch] = useReducer(ticketReducer, initialState)
@@ -116,8 +117,20 @@ export const TicketProvider = ({children}) =>{
             freePlaces: places
         })
     }
-    const bookedSeats = () =>{
-        
+    const bookedSeats = async() =>{
+        try {
+            const resTicketParams = {
+                trainId: state.transportId,
+                wagonId: state.wagonId,
+                seats: state.tickets
+            }
+            let res = await axios.get(RESERVE_TICKET)  
+            if(res.status == 200){
+                return {status:res.status,body:res.data}
+            }
+        } catch (error) {
+            return {seatus:error.response.status}
+        }
     }
     useEffect(()=>{
         const startPoint = localStorage.getItem('start')
@@ -135,7 +148,8 @@ export const TicketProvider = ({children}) =>{
                                                      getSelectTickets, 
                                                      getTicketPrice,
                                                      setFreePlaces,
-                                                     getTrainDetails}}>
+                                                     getTrainDetails,
+                                                     bookedSeats}}>
         {children}
     </TicketContext.Provider>
 }

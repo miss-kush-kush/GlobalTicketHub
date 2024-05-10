@@ -12,16 +12,17 @@ import TicketContext from "../../../contexts/TicketContext";
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from "react-i18next";
 import PayContext from "../../../contexts/PayContext";
+import { toast } from "react-toastify";
 const ClientDataBlock = ()=>{
     const {t} = useTranslation()
-    const {trainRoute, wagonType, getSelectTickets, trainLineName, wagonNumber} = useContext(TicketContext)
-    const {price} = useContext(PayContext)
+    const {trainRoute, wagonType, tickets, trainLineName, wagonNumber, bookedSeats, transportId} = useContext(TicketContext)
+    const {price, setLiqPayParams} = useContext(PayContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
     const route=trainRoute.startPoint + ' - ' +trainRoute.endPoint
     const [startDate, setStartDate] = useState(trainRoute.startDate);
     const [endDate, setEdDate] = useState(trainRoute.endDate);
-    const [prices, setPrices] = useState(getSelectTickets().map(t=>price))
+    const [prices, setPrices] = useState(tickets.map(t=>price))
     const setDates = ()=>{
         const fDate = moment(startDate, 'DD.MM.YYYY');
         const fFormattedDate = fDate.format('D MMMM');
@@ -42,8 +43,19 @@ const ClientDataBlock = ()=>{
         prices.forEach(num=>sum+=num)
         setTotalPrice(sum)
     },[prices])
-    const handle = ()=> {
-        navigate('/payment')
+    const handle = async()=> {
+        let res =  await bookedSeats()
+        if(res.status !==200) {
+            toast.error('Місця зарезервовані')
+            navigate(-1)
+        } else {
+            let desc = ''
+            desc+= trainRoute.startPoint + ' - '+trainRoute.endPoint+','
+            desc+= "ВагонX"+wagonNumber
+            tickets.forEach(t=>desc+=`Місце ${t}`)
+            setLiqPayParams(desc, totalPrice)
+            navigate('/payment')
+        }
     }
     const ticketSend = useFormik({
         initialValues: {
@@ -54,7 +66,7 @@ const ClientDataBlock = ()=>{
     })
     let priceIndex = 0;
     let index = 0;
-    const tickets = getSelectTickets().map(ticket=>{
+    const ticketsEl = tickets.map(ticket=>{
             let el =  <TicketData id={index} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={price} setPrices={setPrices} prices={prices} key={uuidv4}/>
             ++index;
             return el;
@@ -63,7 +75,7 @@ const ClientDataBlock = ()=>{
         <ul>
             <li>
                 <div>
-                    {tickets}
+                    {ticketsEl}
                 </div> 
                 <div className="ticket-send-data-block">
                     <h4>{t('clientData.clientBlock.send')}</h4>
