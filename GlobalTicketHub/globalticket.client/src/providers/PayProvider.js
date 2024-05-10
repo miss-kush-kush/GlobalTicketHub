@@ -27,7 +27,7 @@ export const PayProvider = ({children}) =>{
                 amount: state.amount
             }
             
-            let res = await axios.get(PAY,{params:liqpayParams})
+            let res = await axios.post(PAY,liqpayParams)
             if(res.status == 200) {
                 return {data: res.data, status: res.status}
             }
@@ -44,7 +44,7 @@ export const PayProvider = ({children}) =>{
                 wagonId,
                 seats
             }
-            let res = await axios.get(CHANGE_STATUS,{params:payParams})
+            let res = await axios.post(CHANGE_STATUS,payParams)
             if(res.status==200) {
                 return {message:res.data.message,status:res.status} 
             }
