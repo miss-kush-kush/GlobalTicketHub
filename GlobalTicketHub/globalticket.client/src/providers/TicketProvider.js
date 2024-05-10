@@ -124,7 +124,7 @@ export const TicketProvider = ({children}) =>{
                 wagonId: state.wagonId,
                 seats: state.tickets
             }
-            let res = await axios.get(RESERVE_TICKET)  
+            let res = await axios.get(RESERVE_TICKET, {params: resTicketParams})  
             if(res.status == 200){
                 return {status:res.status,body:res.data}
             }
