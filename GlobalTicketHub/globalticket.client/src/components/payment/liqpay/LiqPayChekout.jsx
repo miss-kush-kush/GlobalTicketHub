@@ -1,12 +1,14 @@
 import axios from 'axios';
 import i18next from 'i18next';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import PayContext from '../../../contexts/PayContext';
 const LiqPayCheckout = () => {
     const navigate = useNavigate()
+    const {pay, setPayStatus} = useContext(PayContext)
   useEffect(() => {
-    axios.get('http://localhost:5007/api/liqpay/test').then(res=>{
+    pay().then(res=>{
         const script = document.createElement('script');
         script.src = "//static.liqpay.ua/libjs/checkout.js";
         script.async = true;
@@ -20,9 +22,16 @@ const LiqPayCheckout = () => {
             language: i18next.language,
             mode: "embed"
             }).on("liqpay.callback", function(data){
-            console.log(data.status);
-            console.log(data);
-            toast("Yep")
+            setPayStatus(data.status).then(res => {
+              if(res.status==200) {
+                  toast("Дані про квитки скоро будуть надіслані на ваш Email або СМС на телефон")
+                  navigate('/')
+              } else {
+                toast.error('Виникла помилка виберіть інші місця')
+                navigate(-2)
+              }
+            })
+            
             }).on("liqpay.ready", function(data){
             // ready
             }).on("liqpay.close", function(data){

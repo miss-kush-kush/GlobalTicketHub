@@ -2,6 +2,7 @@ import { useReducer } from 'react'
 import PayContext from '../contexts/PayContext' 
 import { PAY_TYPES, paymentInitialState, payReducer } from '../reducers/payReducer'
 import axios from 'axios'
+import { message } from 'antd'
 export const PayProvider = ({children}) =>{
     const [state, dispatch] = useReducer(payReducer,paymentInitialState)
     const setPrice = (price) =>{
@@ -17,14 +18,31 @@ export const PayProvider = ({children}) =>{
             amount
         })
     }
-    const Pay = async() =>{
+    const pay = async() =>{
         try {
-            //let res = axios.get()
+            let res = await axios.get()
+            if(res.status == 200) {
+                return res.data
+            }
         } catch (error) {
-            
+            return {status: error.response.status}
         }
     }
-    return <PayContext.Provider value={{...state, setPrice, setLiqPayParams}}>
+    const setPayStatus = async(status, orderId) => {
+        try {
+            let payParams = {
+                status,
+                orderId
+            }
+            let res = await axios.get('',{params:payParams})
+            if(res.status==200) {
+                return res.data
+            }
+        } catch (error) {
+            return {message:'Failure transaction!'}
+        }
+    }
+    return <PayContext.Provider value={{...state, setPrice, setLiqPayParams, pay, setPayStatus}}>
         {children}
     </PayContext.Provider>
 }

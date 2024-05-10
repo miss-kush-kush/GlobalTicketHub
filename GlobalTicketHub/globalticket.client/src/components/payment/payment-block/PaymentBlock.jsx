@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate } from 'react-router-dom'
 import CardForm from '../card-form/CardForm'
 import PaymentPrivate from '../payment-private/PaymentPrivate'
 import './styles/PaymentBlock.css'
