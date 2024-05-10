@@ -43,6 +43,7 @@ const CardForm = () =>{
                     value={values.userName}
                     placeholder='Імя власника картки*'
                     onChange={handleChange}/>
+            <input type="submit" value="Оплатити"/>
         </form>
         <div className='pay-card'>
             <p style={{fontSize:"34px", textAlign:"center"}}>{values.cardNumber}</p>

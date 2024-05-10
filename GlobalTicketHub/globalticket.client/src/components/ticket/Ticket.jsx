@@ -75,6 +75,8 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
                                                     endTime: endTime,
                                                     startPoint: route!==undefined?route.split(' - ')[0]:route,
                                                     endPoint: route!==undefined?route.split(' - ')[1]:route,
+                                                    startDate: firstDate,
+                                                    endDate: lastDate
                                                 }}/>)}
         </div>
     </div>

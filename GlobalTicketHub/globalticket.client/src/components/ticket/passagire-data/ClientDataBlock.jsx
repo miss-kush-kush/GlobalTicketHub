@@ -11,17 +11,17 @@ import { useNavigate} from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from "react-i18next";
+import PayContext from "../../../contexts/PayContext";
 const ClientDataBlock = ()=>{
     const {t} = useTranslation()
-    const {trainRoute, wagonType, getSelectTickets, getTicketPrice, selectWagon, trainLineName, wagonNumber} = useContext(TicketContext)
+    const {trainRoute, wagonType, getSelectTickets, trainLineName, wagonNumber} = useContext(TicketContext)
+    const {price} = useContext(PayContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
     const route=trainRoute.startPoint + ' - ' +trainRoute.endPoint
-    const startTime = "20:00";
-    const [startDate, setStartDate] = useState("22.05.2024");
-    const endTime = "06:00";
-    const [endDate, setEdDate] = useState("23.05.2024");
-    const [prices, setPrices] = useState(getSelectTickets().map(t=>getTicketPrice()))
+    const [startDate, setStartDate] = useState(trainRoute.startDate);
+    const [endDate, setEdDate] = useState(trainRoute.endDate);
+    const [prices, setPrices] = useState(getSelectTickets().map(t=>price))
     const setDates = ()=>{
         const fDate = moment(startDate, 'DD.MM.YYYY');
         const fFormattedDate = fDate.format('D MMMM');
@@ -55,7 +55,7 @@ const ClientDataBlock = ()=>{
     let priceIndex = 0;
     let index = 0;
     const tickets = getSelectTickets().map(ticket=>{
-            let el =  <TicketData id={index} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={getTicketPrice()} setPrices={setPrices} prices={prices} key={uuidv4}/>
+            let el =  <TicketData id={index} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={price} setPrices={setPrices} prices={prices} key={uuidv4}/>
             ++index;
             return el;
     })
@@ -101,11 +101,11 @@ const ClientDataBlock = ()=>{
                     <p style={{fontWeight:"bolder"}}>{trainLineName} <span style={{color:"#6F6F6F", fontFamily:"Fixel Display Light"}}>{route}</span></p>
                     <div className="result-ticket-date-box">
                         <div>
-                            <p>{startTime}</p>
+                            <p>{trainRoute.startTime}</p>
                             <p style={{color:"#6F6F6F"}}>{startDate}</p>
                         </div>
                         <div style={{textAlign:"end"}}>
-                            <p>{endTime}</p>
+                            <p>{trainRoute.endTime}</p>
                             <p style={{color:"#6F6F6F"}}>{endDate}</p>
                         </div>
                     </div>

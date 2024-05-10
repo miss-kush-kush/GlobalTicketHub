@@ -5,8 +5,10 @@ import './styles/SeatPicker.css'
 import Carriage from "./Carriage";
 import { useNavigate } from "react-router-dom";
 import TicketContext from "../../../contexts/TicketContext";
+import PayContext from "../../../contexts/PayContext";
 const SeatPicker = () =>{
     const {trainRoute, setSelectTickets, wagonType, getTrainDetails} = useContext(TicketContext)
+    const {price} = useContext(PayContext)
     const [wagons, setWagons] = useState([]);
     const [activeCarriage, setActiveCarriage] = useState(-1)
     const [carriageSeats,setCarriageSeats]=useState([])
@@ -21,8 +23,6 @@ const SeatPicker = () =>{
     },[])
     const navigate = useNavigate();
     
-    
-    const [price, setPrice] = useState(199.56);
     const [bookedSeats,setBookedSeats] = useState([])
     const {t} =  useTranslation();
     const handle = ()=>{

@@ -4,15 +4,20 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import TicketContext from '../../../contexts/TicketContext'
 import { useContext, useState } from 'react'
 import { WagonType } from '../../../enums/wagon/wagonTypeEnum'
+import PayContext from '../../../contexts/PayContext'
 const PlaceBlock = ({placeName, price,count,clickData, trainLineName, transportId}) => {
     const wagonName = WagonType()[placeName.toString()]
     const location = useLocation()
     const navigate = useNavigate()
     const {setTrainRoute, setFreePlaces} = useContext(TicketContext)
+    const {setPrice} = useContext(PayContext)
     const {t} = useTranslation()
     console.log(transportId)
     const handle = () => {
-        setTrainRoute(clickData.startTime,clickData.startPoint,clickData.endTime,clickData.endPoint,placeName,trainLineName, transportId)
+        setTrainRoute(clickData.startTime, clickData.startPoint, clickData.endTime, 
+                        clickData.endPoint, placeName, trainLineName, 
+                        transportId, clickData.startDate, clickData.endDate)
+        setPrice(price)
         setFreePlaces(count)
         navigate(nextUrl)
     }

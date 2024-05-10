@@ -3,15 +3,23 @@
     width: 375px;
     outline: none;
 }
+.card-form input[type="submit"] {
+    color: white;
+    background-color: #F07B6A;
+    cursor: pointer;
+    width: 395px;
+}
 .card-form {
     display: flex;
-    
+}
+.card-form form{
+    width: 60%;
 }
 .card-form h1{
     margin-left: 1rem;
 }
 .pay-card {
-    width: 350px;
+    width: 400px;
     height: 225px;
     margin-top: 6.5rem;
     border-radius: 15px;

@@ -2,14 +2,11 @@ import axios from 'axios'
 import TicketContext from '../contexts/TicketContext'
 import {TYPES, ticketReducer} from '../reducers/ticketReducer'
 import { useEffect, useReducer } from 'react'
-import moment from 'moment'
-import { TrainType } from '../enums/train/trainTypeEnum'
 import { ticketMapper } from '../functions/mappers'
 const initialState ={
     route: null,
     date: null,
     trainRoute: null,
-    ticketPrice: null,
     tickets: null,
     freePlaces: null,
     wagonType: null,
@@ -24,7 +21,6 @@ const TRAIN_DETAILS = 'http://localhost:5007/api/Home/train-details';
 const BUS_TICKETS = 'http://localhost:5007/api/home/bus'
 export const TicketProvider = ({children}) =>{
     const[state,dispatch] = useReducer(ticketReducer, initialState)
-
     
 
     const getTickets = async(type) =>{
@@ -84,11 +80,10 @@ export const TicketProvider = ({children}) =>{
             date: state.date
         }
     }
-    const setSelectTickets = (tickets, price, selectWagon, wagonNumber)=> {
+    const setSelectTickets = (tickets, selectWagon, wagonNumber)=> {
         dispatch({
             type: TYPES.setTickets,
             tickets,
-            ticketPrice: price,
             selectWagon: selectWagon,
             wagonNumber
         })
@@ -99,14 +94,16 @@ export const TicketProvider = ({children}) =>{
     const getTicketPrice = () => {
         return state.ticketPrice
     }
-    const setTrainRoute = (startTime, startPoint, endTime, endPoint, wagonType, trainLineName, transportId) =>{
+    const setTrainRoute = (startTime, startPoint, endTime, endPoint, wagonType, trainLineName, transportId, startDate, endDate) =>{
         dispatch({
             type: TYPES.setTrain,
             trainRoute: {
                 startTime,
                 startPoint,
                 endPoint,
-                endTime
+                endTime,
+                startDate,
+                endDate
             },
             wagonType: wagonType,
             trainLineName,
