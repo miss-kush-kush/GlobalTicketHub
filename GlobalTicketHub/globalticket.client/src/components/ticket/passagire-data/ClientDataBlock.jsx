@@ -13,11 +13,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from "react-i18next";
 const ClientDataBlock = ()=>{
     const {t} = useTranslation()
-    const {trainRoute} = useContext(TicketContext);
-    const {getSelectTickets, getTicketPrice} = useContext(TicketContext)
+    const {trainRoute, wagonType, getSelectTickets, getTicketPrice, selectWagon, trainLineName, wagonNumber} = useContext(TicketContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
-    const transportName = "131П"
     const route=trainRoute.startPoint + ' - ' +trainRoute.endPoint
     const startTime = "20:00";
     const [startDate, setStartDate] = useState("22.05.2024");
@@ -33,7 +31,6 @@ const ClientDataBlock = ()=>{
         setEdDate(lFormattedDate)
     }
     useEffect(()=>{
-        moment.locale(i18next.language)
         setDates()
     },[])
     useEffect(()=>{
@@ -58,7 +55,7 @@ const ClientDataBlock = ()=>{
     let priceIndex = 0;
     let index = 0;
     const tickets = getSelectTickets().map(ticket=>{
-            let el =  <TicketData id={index} price={getTicketPrice()} setPrices={setPrices} prices={prices} key={uuidv4}/>
+            let el =  <TicketData id={index} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={getTicketPrice()} setPrices={setPrices} prices={prices} key={uuidv4}/>
             ++index;
             return el;
     })
@@ -101,7 +98,7 @@ const ClientDataBlock = ()=>{
                 <div className="result-tricket-block">
                     <p>{t('clientData.orderBlock.order')}</p>
                     <div className="div-divider"></div>
-                    <p style={{fontWeight:"bolder"}}>{transportName} <span style={{color:"#6F6F6F", fontFamily:"Fixel Display Light"}}>{route}</span></p>
+                    <p style={{fontWeight:"bolder"}}>{trainLineName} <span style={{color:"#6F6F6F", fontFamily:"Fixel Display Light"}}>{route}</span></p>
                     <div className="result-ticket-date-box">
                         <div>
                             <p>{startTime}</p>

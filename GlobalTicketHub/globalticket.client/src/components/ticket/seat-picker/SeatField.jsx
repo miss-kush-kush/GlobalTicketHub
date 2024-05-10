@@ -1,16 +1,15 @@
 import { Row } from 'antd'
 import './styles/SeatPicker.css'
 import Seat from './Seat.jsx'
-const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
+const SeatField = ({seats,even=true, selectSeats, setSelectSeats}) =>{
     const evenStuff = (<>
         <Row>
             {seats.map((s,index)=>{
                 if(s.number%2==0){
-                    return <Seat value={s.number} id={s.seatId} even={even} 
+                    return <Seat value={s.number} id={s.number} even={even} 
                                                                 status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}
                                                                 key={index}
                                                                 />
                 } else {
@@ -21,11 +20,10 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
         <Row>
             {seats.map((s,index)=>{
                 if(s.number%2!=0){
-                    return <Seat value={s.number} id={s.seatId} even={even} 
+                    return <Seat value={s.number} id={s.number} even={even} 
                                                                 status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}
                                                                 key={index}/>
                 } else {
                     return null
@@ -37,11 +35,10 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
                             <Row>
                                 {seats.map((s,index)=>{
                                     if(s.id > 35){
-                                        return <Seat value={s.number} id={s.seatId} even={even} 
+                                        return <Seat value={s.number} id={s.number} even={even} 
                                                                                     status={s.stateType} 
                                                                                     selectSeats={selectSeats} 
                                                                                     setSelectSeats={setSelectSeats}
-                                                                                    setSeat={setSeat}
                                                                                     key={index}
                                                                                     />
                                     } else {
@@ -54,11 +51,10 @@ const SeatField = ({seats,even=true, selectSeats, setSelectSeats, setSeat}) =>{
     </>);
     const notEvenStuff = (<>
         <Row>
-            {seats.map((s,index)=><Seat value={s.number} id={s.seatId} even={even} 
+            {seats.map((s,index)=><Seat value={s.number} id={s.number} even={even} 
                                                                 status={s.stateType} 
                                                                 selectSeats={selectSeats} 
                                                                 setSelectSeats={setSelectSeats}
-                                                                setSeat={setSeat}
                                                                 key={index}
                                                                 />)}
         </Row>

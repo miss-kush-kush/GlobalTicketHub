@@ -14,27 +14,27 @@
 }
 .comment-box{
     background-color: #FEF3F2;
-    width: fit-content;
+    width: 500px;
     height: 137px;
     padding: 10px;
 
 }
 .comment-box-title{
-    display: flex;
+    display: grid;
+    grid-template-columns: 65% 35%;
 }
 .comment-box p{
     margin: 0;
+    max-width: 400px;
 }
 .rate-bar{
     color:#F07B6A;
 
 }
-.rate-bar-margin {
-    margin-left: 190px;
-}
 .comment-box-body{
-    margin-top: 10px;
-    padding: 5px 0px;
+    margin-top: 5px;
+    padding: 10px 0px;
+    max-width: 450px;
 }
 
 .comments-block{

@@ -13,6 +13,7 @@ const initialState ={
     tickets: null,
     freePlaces: null,
     wagonType: null,
+    wagonNumber:null,
     trainLineName: null,
     transportId: null,
     selectWagon: null
@@ -82,12 +83,13 @@ export const TicketProvider = ({children}) =>{
             date: state.date
         }
     }
-    const setSelectTickets = (tickets, price, selectWagon)=> {
+    const setSelectTickets = (tickets, price, selectWagon, wagonNumber)=> {
         dispatch({
             type: TYPES.setTickets,
             tickets,
             ticketPrice: price,
-            selectWagon: selectWagon
+            selectWagon: selectWagon,
+            wagonNumber
         })
     }
     const getSelectTickets = ()=> {
@@ -96,7 +98,7 @@ export const TicketProvider = ({children}) =>{
     const getTicketPrice = () => {
         return state.ticketPrice
     }
-    const setTrainRoute = (startTime, startPoint, endTime, endPoint, wagonType, ) =>{
+    const setTrainRoute = (startTime, startPoint, endTime, endPoint, wagonType, trainLineName, transportId) =>{
         dispatch({
             type: TYPES.setTrain,
             trainRoute: {
@@ -105,7 +107,9 @@ export const TicketProvider = ({children}) =>{
                 endPoint,
                 endTime
             },
-            wagonType: wagonType
+            wagonType: wagonType,
+            trainLineName,
+            transportId
         })
     }
     const setFreePlaces = (places) =>{

@@ -23,12 +23,10 @@ const SeatPicker = () =>{
     
     
     const [price, setPrice] = useState(199.56);
-    const [seat, setSeat] = useState(0)
-    
     const [bookedSeats,setBookedSeats] = useState([])
     const {t} =  useTranslation();
     const handle = ()=>{
-        setSelectTickets(bookedSeats,price, activeCarriage)
+        setSelectTickets(bookedSeats,price, activeCarriage, wagonNumber)
         navigate("/train/client")
     }
     /*{t('seat.carriage',{number:activeCarriage})} */
@@ -47,7 +45,7 @@ const SeatPicker = () =>{
                     <div className="carriage-field">
                         {wagons.map((w,i)=><Carriage key={i}
                                                     id={w.wagonId}
-                                                    
+                                                    setBookedSeats={setBookedSeats}
                                                     number={w.number}
                                                     freePlaces={w.availableSeats}
                                                     active={activeCarriage} 
@@ -92,13 +90,15 @@ const SeatPicker = () =>{
                 </div>
             </li>
             <li>
-                <SeatField even={wagonType==0 || wagonType==2 ? true:false} seats={carriageSeats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats} setSeat={setSeat}/>
+                <SeatField even={wagonType==0 || wagonType==2 ? true:false} seats={carriageSeats} selectSeats={bookedSeats} setSelectSeats={setBookedSeats}/>
             </li>
             <li className="seat-li">
                 <div className="seat-price-block">
-                    <div className="seat-block">
-                        <p>{t('seat.carriage',{number:wagonNumber})}</p>
-                        <p>{t('seat.seat', {number:seat})}</p>
+                    <div className="seat-blocks-field">
+                        {bookedSeats.map(s=><div className="seat-block">
+                            <p>{t('seat.carriage',{number:wagonNumber})}</p>
+                            <p>{t('seat.seat', {number:s})}</p>
+                        </div>)}
                     </div>
                     <div className="seat-price-box">
                         <div className="seat-price">

@@ -238,7 +238,7 @@ export const uk = {
             },
             bedding: "Постіль",
             client: "Пасажир {{id}}",
-            fullSeat: "Плацкарт, Вагон 7, місце 44",
+            fullSeat: "{{type}}, Вагон {{wagon}}, місце {{seat}}",
             fullSeatBus:"Сидячий, Вільна розсадка"
         },
         clientBlock: {

@@ -1,9 +1,10 @@
 import './styles/Carriage.css'
-const Carriage = ({number, freePlaces, active, setActive, seats, setCarriageSeats, id, setWagonNumber})=>{
+const Carriage = ({number, freePlaces, active, setActive, seats, setCarriageSeats, id, setWagonNumber, setBookedSeats})=>{
     const handle = () =>{
         setActive(id)
         setCarriageSeats(seats)
         setWagonNumber(number)
+        setBookedSeats([])
     }
     /*'carriage-block'*/ 
     return <div onClick={handle} className={active==id?'carriage-block select-carriage':'carriage-block not-select-carriage'}>

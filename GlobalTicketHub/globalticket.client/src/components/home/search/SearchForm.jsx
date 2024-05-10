@@ -62,8 +62,9 @@ const SearchForm = ({startPoint,endPoint}) => {
                     id='beginPoint'
                     placeholder = {t('searchBlock.searchFrom.begin')}
                     type="text"
+                    list='stations'
                     onBlur={handleBlur}
-                    className={errors.beginPoint && touched.beginPoint?"input-error":""}
+                    className={errors.beginPoint && touched.beginPoint?"hidden-arrow input-error":"hidden-arrow"}
                 />
                 <input 
                     value={values.endPoint}
@@ -71,9 +72,33 @@ const SearchForm = ({startPoint,endPoint}) => {
                     id='endPoint'
                     placeholder={t('searchBlock.searchFrom.end')}
                     type="text"
+                    list='stations'
                     onBlur={handleBlur}
-                    className={errors.endPoint && touched.endPoint?"input-error":""}
+                    className={errors.endPoint && touched.endPoint?"hidden-arrow input-error":"hidden-arrow"}
                 />
+                <datalist id="stations">
+                    <option value="Київ-Пасажирський" />
+                    <option value="Жмеринка"/>
+                    <option value="Вінниця-Головна"/>
+                    <option value="Тульчин"/>
+                    <option value="Хмельницький"/>
+                    <option value="Шепетівка"/>
+                    <option value="Кам'янець-Подільський"/>
+                    <option value="Старокостянтинів"/>
+                    <option value="Львів-Головний"/>
+                    <option value="Тернопіль"/>
+                    <option value="Умань"/>
+                    <option value="Кропивницький"/>
+                    <option value="Знам'янка"/>
+                    <option value="Кривий Ріг-Головний"/>
+                    <option value="Дніпро-Головний"/>
+                    <option value="Запоріжжя-1"/>
+                    <option value="Харків-Пасажирський"/>
+                    <option value="Люботин"/>
+                    <option value="Південне"/>
+                    <option value="Івано-Франківськ"/>
+                    <option value="Коломия"/>
+                </datalist>
                 
                 <input 
                     className="date-picker"

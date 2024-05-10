@@ -236,7 +236,7 @@ export const en = {
             },
             bedding: "Bedding",
             client: "Passenger {{id}}",
-            fullSeat: "Reserved seat, Carriage 7, seat 44",
+            fullSeat: "{{type}}, Wagon {{wagon}}, seat {{seat}}",
             fullSeatBus:"Sitting, Free seating"
         },
         clientBlock: {

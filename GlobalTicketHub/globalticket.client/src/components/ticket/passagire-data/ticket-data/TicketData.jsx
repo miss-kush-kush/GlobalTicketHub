@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SupplimentBlocks from "./SupplimentBlocks";
 import { useTranslation } from "react-i18next";
 import { WagonType } from "../../../../enums/wagon/wagonTypeEnum";
-const TicketData = ({id,price,setPrices,prices}) =>{
+const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon}) =>{
     const{t} = useTranslation()
     const [selectedOption, setSelectedOption] = useState("1"); 
     const [visible, setVisible] = useState(false)
@@ -21,7 +21,6 @@ const TicketData = ({id,price,setPrices,prices}) =>{
         setSelectedOption(event.target.value);
     };
     const handleCheckboxChange = (event) => {
-        console.log(ticketPrice)
         const { name, checked } = event.target;
         setCheckboxes({ ...checkboxes, [name]: checked });
       };
@@ -40,7 +39,7 @@ const TicketData = ({id,price,setPrices,prices}) =>{
         });
     },[ticketPrice])
     return <div className="ticket-data-block">
-        <p>{t('clientData.ticketData.client',{id:id+1})} <span style={{color:"#9D9D9D"}}>{t('clientData.ticketData.fullSeat')}</span></p>
+        <p>{t('clientData.ticketData.client',{id:id+1})} <span style={{color:"#9D9D9D"}}>{t('clientData.ticketData.fullSeat',{type:WagonType()[wagonType],wagon:wagon,seat:seat})}</span></p>
         <div className="radio-block">
             <form action="">
                 <div>

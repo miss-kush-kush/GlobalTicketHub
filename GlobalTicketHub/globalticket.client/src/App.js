@@ -28,6 +28,8 @@ import HomeAirline from './components/home/airline/HomeAirline';
 import HomeAirlineMain from './components/home/airline/HomeAirlineMain';
 import AuthGuard from './components/guards/auth-guard/AuthGuard';
 import RouteGuard from './components/guards/route-guard/RouteGuard';
+import AviaTicket from './components/ticket/air/AviaTicket';
+import OrderPlace from './components/ticket/air/OrderPlace';
 function App() {
   const [startPoint, setStartPoint] = useState('')
   const [endPoint, setEndPoint] = useState('')

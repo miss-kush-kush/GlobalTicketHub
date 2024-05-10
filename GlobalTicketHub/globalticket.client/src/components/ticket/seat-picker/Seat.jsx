@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react'
 import './styles/Seat.css'
-const Seat = ({even=true,value,id, status, selectSeats, setSelectSeats, setSeat}) => {
+const Seat = ({even=true,value,id, status, selectSeats, setSelectSeats}) => {
     const STANDART_STYLE_CLASS = even?'seat seat-even ':'seat seat-noteven '
     const [styleClass, setStyleClass] = useState(STANDART_STYLE_CLASS);
     const [state, setState] = useState(status)
     const deleteElment = (el)=>{
-        let arr = selectSeats;
-        arr = arr.filter(e=>e!=el)
-        setSeat(arr.length>0?arr[arr.length-1]+1:0)
-        return arr;
+        return selectSeats.filter(e=>e!=el)
     }
     const addElement = () =>{
-        let arr = selectSeats;
-        arr.push(id); 
-        setSeat(value)
-        return arr
+        return selectSeats.concat(id);
     }
     const handle = ()=>{
         if(state!=0){

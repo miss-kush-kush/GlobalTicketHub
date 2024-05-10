@@ -27,7 +27,27 @@ const RouteForm = ({dispatch, selectRoute, routes, selectRouteId,setSelectRouteI
         setValues({...values, point:'', departureTime:'',arrivalTime:'',duration:''})
     }
     
-    const [routeOprions, setRouteOprions] = useState(['Test','Test2','Test3','Test4','Test5','Test6','Test7','Test8']);
+    const [routeOprions, setRouteOprions] = useState(["Київ-Пасажирський",
+                                                        "Жмеринка",
+                                                        "Вінниця-Головна",
+                                                        "Тульчин",
+                                                        "Хмельницький",
+                                                        "Шепетівка",
+                                                        "Кам'янець-Подільський",
+                                                        "Старокостянтинів",
+                                                        "Львів-Головний",
+                                                        "Тернопіль",
+                                                        "Умань",
+                                                        "Кропивницький",
+                                                        "Знам'янка",
+                                                        "Кривий Ріг-Головний",
+                                                        "Дніпро-Головний",
+                                                        "Запоріжжя-1",
+                                                        "Харків-Пасажирський",
+                                                        "Люботин",
+                                                        "Південне",
+                                                        "Івано-Франківськ",
+                                                        "Коломия"]);
     const [isEditting, setIsEditting] = useState('Додати');
     
     useEffect(()=>{
