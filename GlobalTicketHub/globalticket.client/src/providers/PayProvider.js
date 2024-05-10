@@ -4,6 +4,7 @@ import { PAY_TYPES, paymentInitialState, payReducer } from '../reducers/payReduc
 import axios from 'axios'
 import { message } from 'antd'
 const PAY = 'http://localhost:5007/api/Home/ticket-payment'
+const CHANGE_STATUS = 'http://localhost:5007/api/Home/buy-train-ticket'
 export const PayProvider = ({children}) =>{
     const [state, dispatch] = useReducer(payReducer,paymentInitialState)
     const setPrice = (price) =>{
@@ -43,7 +44,7 @@ export const PayProvider = ({children}) =>{
                 wagonId,
                 seats
             }
-            let res = await axios.get('',{params:payParams})
+            let res = await axios.get(CHANGE_STATUS,{params:payParams})
             if(res.status==200) {
                 return {message:res.data.message,status:res.status} 
             }
