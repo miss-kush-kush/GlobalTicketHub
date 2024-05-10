@@ -61,7 +61,7 @@ const TicketsList = ({typeText ,type}) =>{
                                                                         route={t.route} 
                                                                         type={t.type}
                                                                         places={t.places}
-                                                                        transportId={t.transportId}
+                                                                        trainId={t.transportId}
                                                                         key={uuidv4()}/>})
         }
     </div>

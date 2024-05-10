@@ -13,6 +13,25 @@ export default function Registr({setVisible}) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const {signup} = useContext(AuthContext)
+  const onSubmit = async () =>{
+    setIsLoading(true)
+    setSubmitValue(t('auth.processing'))
+    const firstName = formik.values.firstName
+    const lastName = formik.values.lastName;
+    const phone = formik.values.phone;
+    const email = formik.values.email;
+    const password = formik.values.password;
+    let res = await signup(firstName,lastName,phone,email,password)
+    if(res.status == 200){
+      toast.success(res.message)
+      setVisible(false)
+    }
+    else{
+      toast.error(res.message)
+    }
+    setIsLoading(false)
+    setSubmitValue('РЕЄСТРАЦІЯ')
+  }
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -47,9 +66,7 @@ export default function Registr({setVisible}) {
       agreementChecked: Yup.boolean()
         .oneOf([true], "Будь ласка, погодьтесь з умовами"),
     }),
-    onSubmit: (values) => {
-      console.log("Дані відправлені", values);
-    },
+    onSubmit
   });
 
   const togglePasswordVisibility = () => {
@@ -62,28 +79,9 @@ export default function Registr({setVisible}) {
   const toggleCheckbox = () => {
     formik.setFieldValue("agreementChecked", !formik.values.agreementChecked);
   };
-  const handle = async (event) =>{
-    event.preventDefault()
-    setIsLoading(true)
-    setSubmitValue(t('auth.processing'))
-    const firstName = formik.values.firstName
-    const lastName = formik.values.lastName;
-    const phone = formik.values.phone;
-    const email = formik.values.email;
-    const password = formik.values.password;
-    let res = await signup(firstName,lastName,phone,email,password)
-    if(res.status == 200){
-      toast.success(res.message)
-      setVisible(false)
-    }
-    else{
-      toast.error(res.message)
-    }
-    setIsLoading(false)
-    setSubmitValue('РЕЄСТРАЦІЯ')
-  }
+  
   return (
-    <form onSubmit={handle}>
+    <form onSubmit={formik.onSubmit}>
       <div className="reg-container">
         <div style={{ position: "relative" }}>
           <input
@@ -99,6 +97,7 @@ export default function Registr({setVisible}) {
               <i class="fa-solid fa-circle-check"></i>
             </span>
           )}
+          {formik.errors.firstName?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.firstName}</p>:<></>}
         </div>
 
         <div style={{ position: "relative" }}>
@@ -116,6 +115,7 @@ export default function Registr({setVisible}) {
               <i class="fa-solid fa-circle-check"></i>
             </span>
           )}
+          {formik.errors.lastName?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.lastName}</p>:<></>}
         </div>
 
         <div style={{ position: "relative" }}>
@@ -133,6 +133,7 @@ export default function Registr({setVisible}) {
               <i class="fa-solid fa-circle-check"></i>
             </span>
           )}
+          {formik.errors.email?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.email}</p>:<></>}
         </div>
 
         <div style={{ position: "relative" }}>
@@ -150,6 +151,7 @@ export default function Registr({setVisible}) {
               <i class="fa-solid fa-circle-check"></i>
             </span>
           )}
+          {formik.errors.phone?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.phone}</p>:<></>}
         </div>
 
         <div style={{ position: "relative" }}>
@@ -167,7 +169,7 @@ export default function Registr({setVisible}) {
               onClick={togglePasswordVisibility}
             ></i>
           </span>
-          
+          {formik.errors.password?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.password}</p>:<></>}
         </div>
 
         <div style={{ position: "relative" }}>
@@ -185,7 +187,7 @@ export default function Registr({setVisible}) {
               onClick={toggleConfirmPasswordVisibility}
             ></i>
           </span>
-          
+          {formik.errors.confirmPassword?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.confirmPassword}</p>:<></>}
           
         </div>
 

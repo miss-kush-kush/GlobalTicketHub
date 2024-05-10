@@ -14,6 +14,22 @@ export default function Login({setVisible}) {
   const [submitValue, setSubmitValue] = useState(t('auth.enter'))
   const [isLoading, setIsLoading] = useState(false)
   const{login}=useContext(AuthContext)
+  const onSubmit = async () =>{
+    setSubmitValue(t('auth.processing'))
+    setIsLoading(true)
+    const email = formik.values.email;
+    const password = formik.values.password;
+    let res = await login(email,password)
+    if(res.status == 200){
+      toast.success(res.message)
+      setVisible(false)
+    }
+    else{
+      toast.error(res.message)
+    }
+    setIsLoading(false)
+    setSubmitValue('УВІЙТИ')
+  }
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,9 +37,7 @@ export default function Login({setVisible}) {
       rememberMe: false,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
+    onSubmit
   });
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -44,26 +58,10 @@ export default function Login({setVisible}) {
       // Обробка помилок валідації
     }
   };
-  const handle = async (event) =>{
-    event.preventDefault()
-    setSubmitValue(t('auth.processing'))
-    setIsLoading(true)
-    const email = formik.values.email;
-    const password = formik.values.password;
-    let res = await login(email,password)
-    if(res.status == 200){
-      toast.success(res.message)
-      setVisible(false)
-    }
-    else{
-      toast.error(res.message)
-    }
-    setIsLoading(false)
-    setSubmitValue('УВІЙТИ')
-  }
+  
 
   return (
-      <form onSubmit={handle}>
+      <form onSubmit={formik.handleSubmit}>
         <div className="login-container">
           <div style={{ position: "relative" }}>
             <input
@@ -79,6 +77,7 @@ export default function Login({setVisible}) {
               <i class="fa-solid fa-circle-check"></i>
             </span>
             )}
+            {formik.errors.email?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.email}</p>:<></>}
           </div>
 
           <div style={{ position: "relative" }}>
@@ -98,6 +97,7 @@ export default function Login({setVisible}) {
                 className={passwordVisible ? "far fa-eye" : "far fa-eye-slash"}
               ></i>
             </span>
+            {formik.errors.password?<p style={{margin:0, fontSize:"12px", color:"red"}}>{formik.errors.password}</p>:<></>}
           </div>
 
           <div className="checkbox-container">

@@ -69,7 +69,7 @@ const Ticket = ({startTime, startDate, endDate, endTime, duration, transportName
                                                 price={p.price} 
                                                 count={p.numberOfPlaces} 
                                                 trainLineName={transportName}
-                                                trainId={trainId}
+                                                transportId={trainId}
                                                 clickData={{
                                                     startTime: startTime,
                                                     endTime: endTime,

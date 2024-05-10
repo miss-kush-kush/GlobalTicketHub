@@ -54,6 +54,7 @@ export const TicketProvider = ({children}) =>{
                 trainId: state.transportId,
                 wagonType: state.wagonType
             }
+            console.log(state.transportId)
             let res = await axios(TRAIN_DETAILS,{params: requestParams})
             if(res.status==200){
                 return res.data
