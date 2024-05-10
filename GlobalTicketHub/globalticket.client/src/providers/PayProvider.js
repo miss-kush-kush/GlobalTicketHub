@@ -3,6 +3,7 @@ import PayContext from '../contexts/PayContext'
 import { PAY_TYPES, paymentInitialState, payReducer } from '../reducers/payReducer'
 import axios from 'axios'
 import { message } from 'antd'
+const PAY = 'http://localhost:5007/api/Home/ticket-payment'
 export const PayProvider = ({children}) =>{
     const [state, dispatch] = useReducer(payReducer,paymentInitialState)
     const setPrice = (price) =>{
@@ -20,26 +21,34 @@ export const PayProvider = ({children}) =>{
     }
     const pay = async() =>{
         try {
-            let res = await axios.get()
+            let liqpayParams = {
+                description: state.des,
+                amount: state.amount
+            }
+            
+            let res = await axios.get(PAY,{params:liqpayParams})
             if(res.status == 200) {
-                return res.data
+                return {data: res.data, status: res.status}
             }
         } catch (error) {
             return {status: error.response.status}
         }
     }
-    const setPayStatus = async(status, orderId) => {
+    const setPayStatus = async(status, orderId, trainId, wagonId, seats) => {
         try {
             let payParams = {
                 status,
-                orderId
+                orderId,
+                trainId,
+                wagonId,
+                seats
             }
             let res = await axios.get('',{params:payParams})
             if(res.status==200) {
-                return res.data
+                return {message:res.data.message,status:res.status} 
             }
         } catch (error) {
-            return {message:'Failure transaction!'}
+            return {status: 404, message:'Failure transaction!'}
         }
     }
     return <PayContext.Provider value={{...state, setPrice, setLiqPayParams, pay, setPayStatus}}>
