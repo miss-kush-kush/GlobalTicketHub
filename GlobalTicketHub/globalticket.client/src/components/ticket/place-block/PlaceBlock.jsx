@@ -12,7 +12,6 @@ const PlaceBlock = ({placeName, price,count,clickData, trainLineName, transportI
     const {setTrainRoute, setFreePlaces} = useContext(TicketContext)
     const {setPrice} = useContext(PayContext)
     const {t} = useTranslation()
-    console.log(transportId)
     const handle = () => {
         setTrainRoute(clickData.startTime, clickData.startPoint, clickData.endTime, 
                         clickData.endPoint, placeName, trainLineName, 

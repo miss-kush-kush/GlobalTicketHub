@@ -1,12 +1,13 @@
 import { useFormik } from "formik"
 import './styles/TicketData.css'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SupplimentBlocks from "./SupplimentBlocks";
 import { useTranslation } from "react-i18next";
 import { WagonType } from "../../../../enums/wagon/wagonTypeEnum";
-const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon}) =>{
-    const{t} = useTranslation()
-    const [selectedOption, setSelectedOption] = useState("1"); 
+import TicketContext from "../../../../contexts/TicketContext";
+const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon, clientDatas, setClientDatas}) =>{
+    const {t} = useTranslation()
+    const [selectedOption, setSelectedOption] = useState("0"); 
     const [visible, setVisible] = useState(false)
     const [ticketPrice, setTicketPrice]=useState(price)
     const [checkboxes, setCheckboxes] = useState({
@@ -30,7 +31,9 @@ const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon}) =>{
             surname: ""
         }
     })
-    useEffect(()=>{prices[id]=ticketPrice},[])
+    useEffect(()=>{
+        prices[id]=ticketPrice
+    },[])
     useEffect(()=>{
         setPrices(prevPrices => {
             const updatedPrices = [...prevPrices];
@@ -38,27 +41,40 @@ const TicketData = ({id,price,setPrices,prices, wagonType, seat,wagon}) =>{
             return updatedPrices; 
         });
     },[ticketPrice])
+    useEffect(()=>{
+        setClientDatas(oldDatas => {
+            let newClientsData = [...oldDatas]
+            newClientsData[id] = {
+                firstName: values.name,
+                lastName: values.surname,
+                price: prices[id],
+                ticketType: selectedOption
+            }
+            return newClientsData
+        })
+        
+    },[values, selectedOption])
     return <div className="ticket-data-block">
         <p>{t('clientData.ticketData.client',{id:id+1})} <span style={{color:"#9D9D9D"}}>{t('clientData.ticketData.fullSeat',{type:WagonType()[wagonType],wagon:wagon,seat:seat})}</span></p>
         <div className="radio-block">
             <form action="">
                 <div>
                     <label class="container">
-                        <input type="radio" name="radio" value="1" checked={selectedOption === "1"}  onChange={handleOptionChange}/>
+                        <input type="radio" name="radio" value="0" checked={selectedOption === "0"}  onChange={handleOptionChange}/>
                         <span class="checkmark"></span>
                         {t('clientData.ticketData.types.full')}
                     </label>
                 </div>
                 <div>
                     <label class="container">
-                        <input type="radio" name="radio" value="2" checked={selectedOption === "2"} onChange={handleOptionChange}/>
+                        <input type="radio" name="radio" value="1" checked={selectedOption === "1"} onChange={handleOptionChange}/>
                         <span class="checkmark"></span>
                         {t('clientData.ticketData.types.children')}
                     </label>
                 </div>
                 <div>
                     <label class="container">
-                        <input type="radio" name="radio" value="3" checked={selectedOption === "3"} onChange={handleOptionChange}/>
+                        <input type="radio" name="radio" value="2" checked={selectedOption === "2"} onChange={handleOptionChange}/>
                         <span class="checkmark"></span>
                         {t('clientData.ticketData.types.student')}
                     </label>

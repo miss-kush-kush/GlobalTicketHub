@@ -1,21 +1,8 @@
 import axios from 'axios'
 import TicketContext from '../contexts/TicketContext'
-import {TYPES, ticketReducer} from '../reducers/ticketReducer'
+import {TYPES, ticketReducer, initialState} from '../reducers/ticketReducer'
 import { useEffect, useReducer } from 'react'
 import { ticketMapper } from '../functions/mappers'
-const initialState ={
-    route: null,
-    date: null,
-    trainRoute: null,
-    tickets: null,
-    freePlaces: null,
-    wagonType: null,
-    wagonNumber:null,
-    trainLineName: null,
-    transportId: null,
-    selectWagon: null
-
-}
 const TRAIN_TICKETS = 'http://localhost:5007/api/Home/find-appropriate-lines';
 const TRAIN_DETAILS = 'http://localhost:5007/api/Home/train-details';
 const RESERVE_TICKET = 'http://localhost:5007/api/Home/reserve-seats';
@@ -51,7 +38,6 @@ export const TicketProvider = ({children}) =>{
                 trainId: state.transportId,
                 wagonType: state.wagonType
             }
-            console.log(state.transportId)
             let res = await axios(TRAIN_DETAILS,{params: requestParams})
             if(res.status==200){
                 return res.data
@@ -129,8 +115,26 @@ export const TicketProvider = ({children}) =>{
                 return {status:res.status,body:res.data}
             }
         } catch (error) {
-            return {seatus:error.response.status}
+            return {status:error.response.status}
         }
+    }
+    const setClientData = (clientDatas) =>{
+
+        dispatch({
+            type: TYPES.setClientData,
+            clientData: clientDatas
+        })
+    }
+    const setSendData = (sendData) =>{
+        dispatch({
+            type: TYPES.setSendData,
+            sendData: sendData
+        })
+    } 
+    const clear = () =>{
+        dispatch({
+            type:   TYPES.clear
+        })
     }
     useEffect(()=>{
         const startPoint = localStorage.getItem('start')
@@ -139,6 +143,7 @@ export const TicketProvider = ({children}) =>{
             const date = localStorage.getItem('date')
             setRoute(startPoint,endPoint,date)
         }
+    
     },[window.location.href])
     return <TicketContext.Provider value={{...state, getTickets, 
                                                      getRoute, 
@@ -149,7 +154,10 @@ export const TicketProvider = ({children}) =>{
                                                      getTicketPrice,
                                                      setFreePlaces,
                                                      getTrainDetails,
-                                                     bookedSeats}}>
+                                                     bookedSeats,
+                                                     setClientData,
+                                                     clear,
+                                                     setSendData}}>
         {children}
     </TicketContext.Provider>
 }

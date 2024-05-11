@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PayContext from '../../../contexts/PayContext';
 import TicketContext from '../../../contexts/TicketContext';
+import AuthContext from '../../../contexts/AuthContext';
 const LiqPayCheckout = () => {
     const navigate = useNavigate()
-    const {pay, setPayStatus} = useContext(PayContext)
-    const {transportId, selectWagon, tickets } = useContext(TicketContext)
+    const {userId} = useContext(AuthContext)
+    const {pay, setPayStatus, setPayStatusSucces} = useContext(PayContext)
+    const {transportId, selectWagon, tickets, trainLineName, wagonNumber, trainRoute, clientData, sendData} = useContext(TicketContext)
   useEffect(() => {
     pay().then(res=>{
         if(res.status==200) {
@@ -25,15 +27,25 @@ const LiqPayCheckout = () => {
               language: i18next.language,
               mode: "embed"
               }).on("liqpay.callback", function(data){
-              setPayStatus(res.orderId,data.status, transportId, selectWagon, tickets).then(resSetPaySt => {
-                if(resSetPaySt.status==200) {
-                    toast("Дані про квитки скоро будуть надіслані на ваш Email або СМС на телефон")
-                    navigate('/')
-                } else {
-                  toast.error('Виникла помилка виберіть інші місця')
-                  navigate(-2)
-                }
-              })
+                if(data.status == 'failure'){
+                  setPayStatus(res.orderId,data.status, transportId, selectWagon, tickets).then(resSetPaySt => {
+                    if(resSetPaySt.status==200) {
+                        toast.error("Транзакцію відхилено!")
+                        navigate('/')
+                    } else {
+                      toast.error('Виникла помилка виберіть інші місця')
+                      navigate('/')
+                    }
+                  }
+              )} else {
+                let tickets = clientData.map(c=>{return {firstName: c.firstName, 
+                                                          lastName: c.lastName, 
+                                                          price: c.price,
+                                                          ticketType: c.ticketType,
+                                                          email: sendData.email,
+                                                          userId:userId}})
+                setPayStatusSucces(data.status, res.orderId, trainLineName, transportId, wagonNumber, trainRoute.startTime, trainRoute.endTime, trainRoute.startPoint, trainRoute.endPoint, tickets)
+              }
               
               }).on("liqpay.ready", function(data){
               // ready

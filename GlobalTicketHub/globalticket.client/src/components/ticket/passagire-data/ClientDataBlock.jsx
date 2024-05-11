@@ -15,7 +15,7 @@ import PayContext from "../../../contexts/PayContext";
 import { toast } from "react-toastify";
 const ClientDataBlock = ()=>{
     const {t} = useTranslation()
-    const {trainRoute, wagonType, tickets, trainLineName, wagonNumber, bookedSeats, transportId} = useContext(TicketContext)
+    const {trainRoute, wagonType, tickets, trainLineName, wagonNumber, bookedSeats, sendData, setSendData, clientData, setClientData} = useContext(TicketContext)
     const {price, setLiqPayParams} = useContext(PayContext)
     const navigate = useNavigate()
     const [totalPrice, setTotalPrice] = useState(0);
@@ -23,6 +23,7 @@ const ClientDataBlock = ()=>{
     const [startDate, setStartDate] = useState(trainRoute.startDate);
     const [endDate, setEdDate] = useState(trainRoute.endDate);
     const [prices, setPrices] = useState(tickets.map(t=>price))
+    const [clientDatas, setClientDatas] = useState(tickets.map(t=>{return {firstName:'',lastName:'',price:price, ticketType:0}}))
     const setDates = ()=>{
         const fDate = moment(startDate, 'DD.MM.YYYY');
         const fFormattedDate = fDate.format('D MMMM');
@@ -44,11 +45,14 @@ const ClientDataBlock = ()=>{
         setTotalPrice(sum)
     },[prices])
     const handle = async()=> {
+        
         let res =  await bookedSeats()
         if(res.status !==200) {
             toast.error('Місця зарезервовані')
             navigate(-1)
         } else {
+            setClientData(clientDatas)
+            setSendData({email: ticketSend.values.email})
             let desc = ''
             desc+= trainRoute.startPoint + ' - '+trainRoute.endPoint+','
             desc+= "ВагонX"+wagonNumber
@@ -67,7 +71,7 @@ const ClientDataBlock = ()=>{
     let priceIndex = 0;
     let index = 0;
     const ticketsEl = tickets.map(ticket=>{
-            let el =  <TicketData id={index} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={price} setPrices={setPrices} prices={prices} key={uuidv4}/>
+            let el =  <TicketData id={index} clientDatas={clientDatas} setClientDatas={setClientDatas} wagonType={wagonType} wagon={wagonNumber} seat={ticket} price={price} setPrices={setPrices} prices={prices} key={uuidv4}/>
             ++index;
             return el;
     })

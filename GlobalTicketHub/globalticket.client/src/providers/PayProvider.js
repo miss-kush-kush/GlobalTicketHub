@@ -4,7 +4,8 @@ import { PAY_TYPES, paymentInitialState, payReducer } from '../reducers/payReduc
 import axios from 'axios'
 import { message } from 'antd'
 const PAY = 'http://localhost:5007/api/Home/ticket-payment'
-const CHANGE_STATUS = 'http://localhost:5007/api/Home/buy-train-ticket'
+const CHANGE_STATUS_FAIL = 'http://localhost:5007/api/Home/buy-train-ticket-failure'
+const CHANGE_STATUS_SUCCESS = 'http://localhost:5007/api/Home/buy-train-ticket-success'
 export const PayProvider = ({children}) =>{
     const [state, dispatch] = useReducer(payReducer,paymentInitialState)
     const setPrice = (price) =>{
@@ -44,7 +45,7 @@ export const PayProvider = ({children}) =>{
                 wagonId,
                 seats
             }
-            let res = await axios.post(CHANGE_STATUS,payParams)
+            let res = await axios.post(CHANGE_STATUS_FAIL,payParams)
             if(res.status==200) {
                 return {message:res.data.message,status:res.status} 
             }
@@ -52,7 +53,29 @@ export const PayProvider = ({children}) =>{
             return {status: 404, message:'Failure transaction!'}
         }
     }
-    return <PayContext.Provider value={{...state, setPrice, setLiqPayParams, pay, setPayStatus}}>
+    const setPayStatusSucces = async(status, orderId, trainLineName, trainId, wagonId, timeOfDeparture, timeOfArrival, stationOfDepature, stationOfArrival, trainTicketDtos) =>{
+        try {
+            let body = {
+                orderStatus: status,
+                orderId,
+                trainLineName,
+                trainId,
+                wagonId,
+                timeOfDeparture,
+                timeOfArrival,
+                stationOfDepature,
+                stationOfArrival,
+                trainTicketDtos
+            }
+            let res = await axios.post(CHANGE_STATUS_SUCCESS,body)
+            if(res.status == 200) {
+                return {status: 200, message:res.data}
+            }
+        } catch (error) {
+            return {status: 404, message:'Failure transaction!'}
+        }
+    }
+    return <PayContext.Provider value={{...state, setPrice, setLiqPayParams, pay, setPayStatus, setPayStatusSucces}}>
         {children}
     </PayContext.Provider>
 }
