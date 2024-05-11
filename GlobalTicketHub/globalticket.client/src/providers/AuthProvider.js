@@ -14,7 +14,7 @@ const LOGIN_FAIL_ENDPOINT = 'http://localhost:5007/api/Users/log-in-fail';
 const SIGNUP_SUCCESS_ENDPOINT = 'http://localhost:5007/api/Users/sign-up-success';
 const SIGNUP_FAIL_ENDPOINT = 'http://localhost:5007/api/Users/sign-up-fail';
 const SIGNUP_ENDPOINT ='http://localhost:5007/api/Users/register'
-const LOGIN__ENDPOINT = 'http://localhost:5007/api/Users/log-in';
+const LOGIN__ENDPOINT = 'http://localhost:5007/api/Users/login';
 const LOGOUT_ENPOINT = 'http://localhost:5007/api/Users/logout'
 const GET_USER_DETAILS='http://localhost:5007/api/Users/detail'
 const PUSH_COMMENT='http://localhost:5007/api/Home/post-feedback'
@@ -57,7 +57,7 @@ export const AuthProvider = ({children}) =>{
     const signup = async (FirstName,LastName,Email,Password,Phone) =>{
         try {
             axios.defaults.headers.common['Accept']='application/json'
-            const response = await axios.post(SIGNUP_SUCCESS_ENDPOINT ,{FirstName,LastName,Email,Password,Phone})
+            const response = await axios.post(REGISTER ,{FirstName,LastName,Email,Password,Phone})
             if(response.status==200){
                 let u = await setUsers(response.data.token)
                 dispatch({
